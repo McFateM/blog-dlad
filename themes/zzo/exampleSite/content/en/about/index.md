@@ -1,6 +1,6 @@
 +++
 title = "About"
-description = "Hugo, the world’s fastest framework for building websites"
+description = "The Grinnell College Digital Library Application Developer's Blog"
 type = "about"
 date = "2019-02-28"
 +++
@@ -22,6 +22,3 @@ Hugo is for people who want to hand code their own website without worrying abou
 Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
 
 Learn more and contribute on [GitHub](https://github.com/gohugoio).
-
-
-

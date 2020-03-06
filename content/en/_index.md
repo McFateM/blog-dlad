@@ -6,17 +6,17 @@ header:
     paddingY: 0
     align: center
     title:
-      - HUGO
+      - The Grinnell College Digital Library Application Developer's Blog
     subtitle:
-      - The world’s fastest framework for building websites
-    titleColor: 
+      - by Mark A. McFate, Grinnell College Libraries
+    titleColor:
     titleShadow: true
     titleFontSize: 44
-    subtitleColor: 
+    subtitleColor:
     subtitleCursive: true
     subtitleFontSize: 18
     spaceBetweenTitleSubtitle: 16
-  
+
   - type: img
     imageSrc: images/header/background.jpg
     imageSize: cover

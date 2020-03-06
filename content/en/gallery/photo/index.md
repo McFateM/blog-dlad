@@ -6,10 +6,6 @@ type: gallery
 mode: one-by-one
 description: "photo gallery"
 images:
-  - image: beach.jpg
-    caption: beach, women, car
-  - image: beautiful.jpg
-    caption: beautiful women
   - image: people.jpg
     caption: man
   - image: child.jpg
