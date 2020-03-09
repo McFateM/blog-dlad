@@ -41,7 +41,7 @@ pubPaginate = 20
 # whoami
 myname = "Mark A. McFate"
 email = "mcfatem@grinnell.edu"
-whoami = "Digital Libraries Application Developer"
+whoami = "Digital Library Applications Developer"
 bioImageUrl = ""
 useGravatar = false
 location = "Grinnell, Iowa"
