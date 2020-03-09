@@ -471,7 +471,7 @@
         metaThemeColor.setAttribute('content', '#51412c');
         metaMsapplicationNavbuttonColor.setAttribute('content', '#51412c');
         metaAppleMobileWebAappStatusBarStyle.setAttribute('content', '#51412c');
-      } else if (themeColor.includes('kimbie')) {
+      } else if (themeColor.includes('grinnell')) {
         metaMsapplicationTileColor.setAttribute('content', '#586e75');
         metaThemeColor.setAttribute('content', '#eee8d5');
         metaMsapplicationNavbuttonColor.setAttribute('content', '#eee8d5');
@@ -533,7 +533,7 @@
         if (utterances) {
           utterances.contentWindow.postMessage({
             type: 'set-theme',
-            theme: selectedThemeVariant === "dark" || selectedThemeVariant === "hacker" ? 'photon-dark' : selectedThemeVariant === 'kimbie' ? 'github-dark-orange' : 'github-light',
+            theme: selectedThemeVariant === "dark" || selectedThemeVariant === "hacker" ? 'photon-dark' : selectedThemeVariant === 'grinnell' ? 'github-dark-orange' : 'github-light',
           }, 'https://utteranc.es');
         }
       });

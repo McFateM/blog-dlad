@@ -44,7 +44,7 @@ $lightcode: '';
     content-pre-header-background-color: darken(#FBF1D1, 6%),
     content-pre-header-color: #344952,
   );
-} @else if $theme_light_chroma_background == kimbie {
+} @else if $theme_light_chroma_background == grinnell {
   $lightcode: (
     content-code-color: #f06431,
     content-pre-main-color: #dc3958,
