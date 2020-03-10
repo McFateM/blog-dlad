@@ -20,5 +20,5 @@ echo "...docker image build is complete."
 
 # Tag the new image and push it to Docker Hub
 docker login
-docker tag blog-update mcfatem/blogs-mcfatem:latest
-docker push mcfatem/blogs-mcfatem:latest
+docker tag blog-update mcfatem/dlad-blog:latest
+docker push mcfatem/dlad-blog:latest
