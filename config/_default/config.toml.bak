@@ -1,4 +1,4 @@
-baseURL = "https://static.grinnell.edu/blogs/McFateM/"
+baseURL = "https://static.grinnell.edu/blogs/McFateM"
 title = "The Grinnell College Digital Library Application Developer's Blog"
 theme = "zzo"
 
@@ -6,9 +6,9 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 hasCJKLanguage = true
 
-summaryLength = 40    # default is 70 words
+summaryLength = 70
 buildFuture = true
-buildDate = '2020-03-10 08:49'
+buildDate = '2020-03-10 08:45'
 
 copyright = "&copy;{year}, All Rights Reserved"
 timeout = 10000
@@ -17,6 +17,7 @@ paginate = 13
 rssLimit = 100
 
 enableGitInfo = false
+summaryLength = 40    # default is 70 words
 googleAnalytics = "UA-131150861-2"
 disqusShortname = "digital-library-applications-developer-blog"
 
