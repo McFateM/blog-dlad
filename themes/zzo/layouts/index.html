@@ -9,7 +9,7 @@
                 {{ $filteredPages = (where $filteredPages "Type" "!=" (lower .)) }}
             {{ end }}
             {{ $paginator := .Paginate $filteredPages }}
-            {{ range $paginator.Pages }}
+            {{ range $paginator.Pages.ByLastmod.Reverse }}
                 {{ .Render "summary" }}
             {{ end }}
             {{ partial "pagination/pagination" . }}
@@ -28,7 +28,7 @@
     var sidebarPosition = JSON.parse({{ $sidebarPosition | jsonify }});
     {{ $enableSidebar:= $.Param "enableSidebar" }}
     var enableSidebar = JSON.parse({{ $enableSidebar | jsonify }});
-    
+
     var listMainElem = document.querySelector('.list__main');
     var listSideElem = document.querySelector('.list__sidebar');
 
@@ -58,7 +58,7 @@
                     listSideElem.classList.add('hide');
                 }
             }
-            
+
         },
         unmatch: function () {
             if (enableSidebar) {
