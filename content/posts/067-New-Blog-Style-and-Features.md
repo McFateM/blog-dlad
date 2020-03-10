@@ -9,7 +9,7 @@ tags:
   - Hugo
 ---
 
-Welcome to my new blog theme/style with great new features.  All of the content, posts, from my old blog has been moved here, but there are still lots of remnants of the new theme, [Zzo](https://themes.gohugo.io/theme/hugo-theme-zzo/en) lurking here.  Please be patient with this new format while I work to fully implement all the features that this setup provides.
+Welcome to my new blog theme/style with new features.  All of the content, aka 'posts', from my old blog have been moved here, but there are still lots of remnants of the new theme, [Zzo](https://themes.gohugo.io/theme/hugo-theme-zzo/en), lurking here.  Please be patient with this new format while I work to fully implement all the features that this setup provides.
 
 Also, thank you, Mackenzie.  My daughter played an important role in helping me with this transition.
 
