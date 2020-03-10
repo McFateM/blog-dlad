@@ -1,7 +1,7 @@
 ---
 title: New Blog Style and Features
 publishdate: 2020-03-10
-lastmod: 2020-03-10T08:53:28-05:00
+lastmod: 2020-03-10T13:52:45-05:00
 draft: false
 tags:
   - Zzo
