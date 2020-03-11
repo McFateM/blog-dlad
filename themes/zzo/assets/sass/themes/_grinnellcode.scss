@@ -46,7 +46,7 @@ $grinnellcode: '';
   );
 } @else if $theme_grinnell_chroma_background == grinnell {
   $grinnellcode: (
-    content-code-color: #f06431,
+    content-code-color: black, // #f06431,
     content-pre-main-color: #dc3958,
     content-pre-color: #ffffff,
     content-pre-number-color: #666,
@@ -57,7 +57,7 @@ $grinnellcode: '';
   );
 } @else {
   $grinnellcode: (
-    content-code-color: #f06431,
+    content-code-color: black, // #f06431,
     content-pre-main-color: #dc3958,
     content-pre-color: #ffffff,
     content-pre-number-color: #666,

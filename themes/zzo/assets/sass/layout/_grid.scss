@@ -5,7 +5,7 @@ $grid_column_gap: $grid_column_gap_width + $grid_column_gap_unit;
 
 .wrapper {
     display: grid;
-    width: 100%;
+    width: 100%;            // Move to 94%, perhaps?  Requires removal of max-width below.
     min-height: 100vh;
     max-width: $grid_max;
     grid-template-columns: minmax(350px, $grid_main_main) minmax(250px, $grid_main_side);
