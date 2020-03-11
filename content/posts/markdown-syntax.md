@@ -9,15 +9,16 @@ enableTocContent: true
 author: Choi
 authorEmoji: 🤖
 tags:
-- markdown
-- css
-- html
-- themes
+  - markdown
+  - css
+  - html
+  - themes
 categories:
-- themes
-- syntax
+  - themes
+  - syntax
 series:
-- Themes Guide
+  - Themes Guide
+  - Original Post
 image: images/feature1/markdown.png
 ---
 
@@ -148,4 +149,3 @@ X<sup>n</sup> + Y<sup>n</sup>: Z<sup>n</sup>
 Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
-

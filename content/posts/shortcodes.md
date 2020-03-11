@@ -8,12 +8,12 @@ enableToc: true
 enableTocContent: true
 tocPosition: inner
 tags:
-- shortcode
-series:
--
+  - shortcode
 categories:
--
+  -
 image: images/feature3/code-file.png
+series:
+  - Original Post
 ---
 
 ## Markdownify box
@@ -46,7 +46,7 @@ Make it easy to switch between different code
   ```javascript
   console.log('Hello World!');
   ```
-  
+
   {{< /code >}}
 {{< /codes >}}
 

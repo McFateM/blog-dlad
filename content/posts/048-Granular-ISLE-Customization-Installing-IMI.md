@@ -10,6 +10,8 @@ tags:
   - Islandora Multi-Importer
   - IMI
   - Twig
+series:
+  - Granular ISLE  
 ---
 
 | Granular ISLE Customization |

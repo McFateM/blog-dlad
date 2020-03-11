@@ -6,14 +6,15 @@ draft: false
 enableToc: false
 enableTocContent: false
 tags:
--
-series:
--
+  -
 categories:
-- diagram
+  - diagram
 libraries:
-- chart
+  - chart
 image: images/feature1/graph.png
+series:
+  - Original Post
+  - Test
 ---
 
 ```chart

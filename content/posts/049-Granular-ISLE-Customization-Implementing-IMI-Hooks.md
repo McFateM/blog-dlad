@@ -11,6 +11,8 @@ tags:
   - IMI
   - hook_form_alter
   - islandora_multi_importer_form
+series:
+  - Granular ISLE  
 ---
 
 | Granular ISLE Customization |

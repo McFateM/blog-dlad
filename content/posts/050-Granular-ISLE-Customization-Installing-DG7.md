@@ -9,6 +9,8 @@ tags:
   - ISLE
   - DG7
   - hooks
+series:
+  - Granular ISLE  
 ---
 
 | Warning! |

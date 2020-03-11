@@ -6,13 +6,14 @@ draft: false
 enableToc: false
 enableTocContent: false
 tags:
-- 
+  -
 series:
--
+  - Original Post
+  - Test
 categories:
-- math
+  - math
 libraries:
-- mathjax
+  - mathjax
 image: images/feature1/infinity.png
 ---
 

@@ -9,6 +9,8 @@ tags:
   - ISLE
   - guidelines
   - gists
+series:
+  - Granular ISLE  
 ---
 
 | Granular ISLE Customization |

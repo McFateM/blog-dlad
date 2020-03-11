@@ -6,13 +6,14 @@ draft: false
 enableToc: false
 enableTocContent: false
 tags:
-- diagram
+  - diagram
 series:
--
+  - Original Post
+  - Test
 categories:
-- diagram
+  - diagram
 libraries:
-- mermaid
+  - mermaid
 image: images/feature2/workflow.png
 ---
 
@@ -90,5 +91,5 @@ Crash --> [*]
 pie
 "Dogs" : 386
 "Cats" : 85
-"Rats" : 15 
+"Rats" : 15
 ```

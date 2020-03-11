@@ -6,13 +6,14 @@ draft: false
 enableToc: false
 enableTocContent: false
 tags:
--
+  -
 series:
--
+    - Original Post
+    - Test
 categories:
-- diagram
+  - diagram
 libraries:
-- viz
+  - viz
 image: images/feature2/graph.png
 ---
 

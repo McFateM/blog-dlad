@@ -1,5 +1,5 @@
 ---
-title: "Granular ISLE Customization: Install 'Backup and Migrate'"
+title: "Granular ISLE Customization: Install 'Backup & Migrate'"
 publishdate: 2019-11-25
 lastmod: 2019-11-25T15:50:54-05:00
 draft: false
@@ -7,8 +7,15 @@ tags:
   - granular
   - customization
   - ISLE
-  - Backup
-  - Migrate
+  - Backup & Migrate
+series:
+  - Granular ISLE
+hideToc: false
+enableToc: true
+enableTocContent: true
+author: Mark A. McFate
+authorEmoji: 🤖
+image: images/feature1/markdown.png
 ---
 
 | Granular ISLE Customization |

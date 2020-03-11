@@ -10,11 +10,13 @@ enableTocContent: false
 author: Park
 authorEmoji: 👽
 libraries:
-- katex
+  - katex
+series:
+  - Original Post
 ---
 
 {{< box >}}
-We need goldmark katex entension which is not yet we have: 
+We need goldmark katex entension which is not yet we have:
 [https://github.com/gohugoio/hugo/issues/6544](https://github.com/gohugoio/hugo/issues/6544)
 {{< /box >}}
 
@@ -44,5 +46,5 @@ Inline math: $$ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $$
 Block math:
 
 $$
- \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } 
+ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
 $$
