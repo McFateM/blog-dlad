@@ -25,9 +25,9 @@ The following [ISLE Workflows](https://docs.google.com/presentation/d/1Eg6HiGm8i
 
   , (see https://This is a follow-up to previous posts 034, [Building ISLE 1.2.0 (ld)](https://static.grinnell.edu/blogs/McFateM/posts/034-building-isle-1.2.0-ld/) and 037, [Migrating Digital.Grinnell (DG) to ISLE 1.2.0 (ld) for Local Development](https://static.grinnell.edu/blogs/McFateM/posts/037-migrating-dg-to-isle-1.2.0-ld/) where I successfully completed a "local" build of ISLE v1.2.0 and subsequently started "customization" of that local instance.  So, this post's intent is to complete the goal stated in [Migrating Digital.Grinnell (DG) to ISLE 1.2.0 (ld) for Local Development](https://static.grinnell.edu/blogs/McFateM/posts/037-migrating-dg-to-isle-1.2.0-ld/), but for [ISLE 1.3.0](https://github.com/Islandora-Collaboration-Group/ISLE/tree/master), specifically to:
 
-{{% original %}}
+{{% boxmd %}}
 The goal of this project is to spin up a pristine, local Islandora stack using an updated fork of [the ISLE project](https://github.com/Islandora-Collaboration-Group/ISLE) at https://github.com/Digital-Grinnell/dg-isle, then introduce elements like the [Digital Grinnell theme](https://github.com/DigitalGrinnell/digital_grinnell_theme) and custom modules like [DG7](https://github.com/DigitalGrinnell/dg7).  Once these pieces are in-place and working, I'll begin adding other critical components as well as a robust set of data gleaned from https://digital.grinnell.edu.
-{{% /original %}}
+{{% /boxmd %}}
 
 As before, this effort will involve an `ld`, or `local development`, instance of Digital.Grinnell on one of my Mac workstations. Unlike my previous work, this instance will follow the guidance of a different document, specifically [`install-local-migrate.md`](https://github.com/Islandora-Collaboration-Group/ISLE/blob/ISLE-1.3.0/docs/install/install-local-migrate.md).
 

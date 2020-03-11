@@ -11,7 +11,7 @@ This wonderful addition to the site comes to you compliments of [this awesome gi
 
 There's just one problem, perhaps summarized [in my comment on the gist](https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae#gistcomment-2921320) posted moments ago.  The original comment says:
 
-{{% original %}}
+{{% boxmd %}}
 I think search is a great addition to Hugo!  But I had to butcher things a bit to get this working with my theme and config.  But it does work, with one exception, I get only one match returned in my results, apparently because of this JS error thrown in the first match:  
 ```
 TypeError: $(...).mark is not a function
@@ -35,6 +35,6 @@ This seems to be telling me that my returned Objects, namely `matches`, did NOT 
 So, if I'm right about this, can anyone tell me how to define or attach (not sure what the right Javascript concept is) `mark` as a function of each returned object?
 
 Being a relative Hugo noob, and a total Javascript idiot (there, I said it) I am wondering if there's an easy way to fix this, because I understand what .mark is intended to do, and I'd really love to have that feature.  Thanks in advance!
-{{% /original %}}
+{{% /boxmd %}}
 
 And that's a wrap, well, at least until I find a solution.  Until next time...

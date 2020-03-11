@@ -109,11 +109,11 @@ A few days ago, when this post was originally written, I also posted a "feature 
 
 Within a few hours there were comments posted to this issue; apparently other folks thought this would be a nice addition too. :simple_smile: Not long after that, Grocy's author, [Bernd Bestel](https://berrnd.de/) posted [this comment](https://github.com/grocy/grocy/issues/341#issuecomment-520152023):
 
-{{% original %}}
+{{% boxmd %}}
 Sure, any contributions are very welcome. :)
 
 ...but I'm already fiddling together a first draft about this ... will show you in a couple of minutes ... feel free to improve it then... :)
-{{% /original %}}
+{{% /boxmd %}}
 
 Wow... I definitely owe Bernd a beverage of his choosing next time I'm in Germany!  But I digress...
 

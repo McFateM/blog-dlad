@@ -5,7 +5,7 @@ title: Building this Blog with Hugo, Docker, Docksal, and More
 
 In this post I will attempt to chronicle the steps my associates and I took to complete the configuration of `static.grinnell.edu`, and to eventually create this blog following [Juan Treminio's](https://jtreminio.com/) lead.  Small portions of Juan's [blog post](https://jtreminio.com/blog/setting-up-a-static-site-with-hugo-and-push-to-deploy/) are reproduced here, with permission, so that you can follow along in his work.  Those passages appear with a colored background like so:
 
-{{% original %}}
+{{% boxmd %}}
 ...I will walk you through the complete process of setting up a static
 website that you can deploy new versions with a simple `git push`.
 
@@ -17,7 +17,7 @@ automatically generate and maintain free SSL certificates using
 
 The only prerequisite is you have Docker installed on your local machine.
 All other dependencies will be in Docker containers.
-{{% /original %}}
+{{% /boxmd %}}
 
 ## Technologies and Services
 
@@ -25,7 +25,7 @@ We've added one tool, *Docksal*, to Juan's original workflow, so the complete li
 
 * [Docksal](https://docksal.io/) for creating and managing a quick-and-easy local environment for development and testing,
 
-{{% original %}}
+{{% boxmd %}}
 * [Hugo](https://gohugo.io/) for static site generator,
 * [Ansible](https://www.ansible.com/) for configuring the server,
 * [Docker](https://www.docker.com/) for containers,
@@ -34,13 +34,13 @@ We've added one tool, *Docksal*, to Juan's original workflow, so the complete li
 * [Watchtower](https://github.com/v2tec/watchtower) for keeping latest Docker
     image running on your site.
 * [Let's Encrypt](https://letsencrypt.org/) for free, automated SSL certificate.
-{{% /original %}}
+{{% /boxmd %}}
 
 ## Production Server Configuration - A Simple One-Time Process
 
 If you have `root` access to a networked Linux server it can be configured as a production host with a script that Juan has provided.
 
-{{% original %}}
+{{% boxmd %}}
 I have created a
 [simple Ansible-based configuration](https://github.com/jtreminio/docker-bootstrap)
 that
@@ -49,7 +49,7 @@ that
 * opens ports `80`, `443` and `8080` on firewall (optional),
 * adds Traefik and configures Let's Encrypt support,
 * creates a Watchtower container.
-{{% /original %}}
+{{% /boxmd %}}
 
 It's important to note that Juan's `./init` script is installed "locally" on your development host, presumably a desktop or laptop workstation, and it makes changes 'remotely' to your production server.  To install `./init` just follow the instruction provided in his [docker-bootstrap](https://github.com/jtreminio/docker-bootstrap) project.
 
@@ -189,20 +189,20 @@ When you want to resume work on your project just open a terminal, navigate back
 
 I encourage you to look at Juan's [blog post](https://jtreminio.com/blog/setting-up-a-static-site-with-hugo-and-push-to-deploy/) beginning with this section:
 
-{{% original %}}
+{{% boxmd %}}
 ### Manual deployment process steps
 
 With a single command Hugo takes all your HTML/Markdown content and generates
 static files in `/public`...
-{{% /original %}}
+{{% /boxmd %}}
 
 Make sure you run these commands on your local machine, in a terminal opened to your project directory:
 
-{{% original %}}
+{{% boxmd %}}
 docker image build -t hugo-test .  
 docker image ls  
 docker container run --rm -it -p 8080:80 hugo-test  
-{{% /original %}}
+{{% /boxmd %}}
 
 These commands should produce an image named/tagged `hugo-test`, and run that image; one that should be **identical** to what you'll eventually push to production.  While the container is running you should be able to visit your project at [http://localhost:8080](http://localhost:8080).
 

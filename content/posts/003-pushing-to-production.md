@@ -7,13 +7,13 @@ title: Pushing This Blog to Production
 
 Please open [Juan's blog post](https://jtreminio.com/blog/setting-up-a-static-site-with-hugo-and-push-to-deploy/) and focus on the section that begins like so:
 
-{{% original %}}
+{{% boxmd %}}
 
 ## Docker Hub Automated Builds
 
 After you have played around a bit with Hugo, commit any changes you have made
 and push to a public repo on Github.
-{{% /original %}}
+{{% /boxmd %}}
 
 Work your way through the `Docker Hub Automated Builds` section, and if you run into problems return here and have a look at the last section of this post.
 
@@ -44,7 +44,7 @@ If you've successfully completed the automated build setup, or my '*emergency-pu
 
 You now have a working Docker image resting comfortably in Docker Hub.  This final step will launch your project as a container on your production host. Juan's section covers this nicely.  It begins like so:
 
-{{% original %}}
+{{% boxmd %}}
 ## Starting your blog
 
 Once the first build is finished on the Docker Hub we can create the initial
@@ -68,7 +68,7 @@ docker container run -d --name ${NAME} \
 ```
 
 Make sure to change `NAME`, `HOST` and `IMAGE` to your own information!
-{{% /original %}}
+{{% /boxmd %}}
 
 For this blog, I saved the applicable commands [in this gist](https://gist.github.com/McFateM/b40b3d03e25a552d95b17f175ce82a59) where there is one notable change, in the `traefik.frontend.rule` label.  Unlike Juan's command set, my label specifies both a `Host` and a `PathPrefixStrip` argument. The `PathPrefixStrip:/blogs/McFateM` tells *Traefik* to listen for a 'complete' address with a path prefix, so `https://static.grinnell.edu/blogs/McFateM`.  The rule sends all such requests to the `blogs-mcfatem` 'backend' container, and strips the path prefix, `/blogs/McFateM`, off before doing so.  
 
