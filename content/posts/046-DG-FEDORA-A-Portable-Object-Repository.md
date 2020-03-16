@@ -1,7 +1,7 @@
 ---
 title: "DG-FEDORA: A Portable FEDORA Repository"
 publishdate: 2019-09-16
-lastmod: 2019-12-23T10:43:02-05:00
+lastmod: 2020-03-16T11:09:06-05:00
 draft: false
 tags:
   - DG-FEDORA
@@ -11,6 +11,7 @@ tags:
   - override
   - COMPOSE_FILE
   - re-index
+  - docker exec -w
 ---
 
 ## Teaser
@@ -40,7 +41,7 @@ BASE_DOMAIN=isle.localdomain
 CONTAINER_SHORT_ID=ld
 # COMPOSE_FILE=docker-compose.demo.yml
 COMPOSE_FILE=docker-compose.demo.yml:docker-compose.DG-FEDORA.yml
-```  
+```
 
 In the file above, note that I've commented out the original definition of _COMPOSE_FILE_ and added my own definition which appends a second _.yml_ file reference to the original.  That 2nd file, _docker-compose.DG-FEDORA.yml_ is also provided on the _DG-FEDORA_ USB stick and it reads like this:
 
@@ -79,7 +80,7 @@ The _DG-FEDORA_ USB stick also includes a _README.md_ file and since you don't h
 
 My _Digital.Grinnell_ staging server, _DGDockerX_ is a networked _CentOS 7_ virtual machine with lots of available storage, but no accessible USB ports, of course...it's a VM after all.  Consequently, it's not practical to maintain all of my "portable" _FEDORA_ data on a USB stick alone. So, on _DGDockerX_ I've created a copy of the _DG-FEDORA_ USB stick at `/mnt/data/DG-FEDORA`, and I've declared it to be copy "zero", so on it there's a `DG-FEDORA-0.md` file proclaiming it to be the "master" copy of _DG-FEDORA_.
 
-It's worth noting, perhaps, that at the time of this writing, _DG-FEDORA-0_ contains 126 _FEDORA_ objects.  **Anything less than that number should be considered an incomplete set**.  
+It's worth noting, perhaps, that at the time of this writing, _DG-FEDORA-0_ contains 126 _FEDORA_ objects.  **Anything less than that number should be considered an incomplete set**.
 
 The `README.md` file in the `DG-FEDORA-0` **MASTER** volume suggests using a command like this to copy the **MASTER** repository to a mounted `DG-FEDORA` USB stick:
 
@@ -110,7 +111,7 @@ In MacOSX, open a terminal and use the following command to make _DG-FEDORA_ wri
 
   - `sudo mount -u -w /Volumes/DG-FEDORA`
 
-## Not Using MacOSX?  
+## Not Using MacOSX?
 
 If your workstation is not a Mac, you will need to insert the USB stick and take appropriate steps to:
 
@@ -129,22 +130,24 @@ Navigate to your _ISLE_ project directory and execute the following operations:
 
 ### Rebuild _FEDORA_'s _resourceIndex_
 
-Rebuild your _FEDORA_ _resourceIndex_ using the steps documented in [Step 17: On Remote Production - Re-Index Fedora & Solr](https://github.com/Born-Digital-US/ISLE/blob/ISLE-v.1.3.0-dev/docs/install/install-production-migrate.md#step-17-on-remote-production---re-index-fedora--solr).
+Rebuild your _FEDORA_ _resourceIndex_ using the steps documented in [Step 17: On Remote Production - Re-Index Fedora & Solr](https://github.com/Islandora-Collaboration-Group/ISLE/blob/master/docs/install/install-production-migrate.md#step-17-on-remote-production---re-index-fedora--solr).
 
-  - Open a terminal in the _isle-fedora-ld_ container, `docker exec -it isle-fedora-ld bash`, and then run `cd utility_scripts/; ./rebuildFedora.sh`.
+  - Open a terminal in the _isle-fedora-ld_ container or equivalent for your configuration, `docker exec -it isle-fedora-ld bash`, and then run `cd utility_scripts/; ./rebuildFedora.sh`.
+  - Or, if you prefer (I do) try this from the terminal on your host: `docker exec -w /utility_scripts isle-fedora-ld .//rebuildFedora.sh`.
 
 ### Rebuild the _Solr_ Index
 
-Once the previous rebuild process is complete, you should rebuild your _Solr_ search index using the remaining steps documented in [Step 17: On Remote Production - Re-Index Fedora & Solr](https://github.com/Born-Digital-US/ISLE/blob/ISLE-v.1.3.0-dev/docs/install/install-production-migrate.md#step-17-on-remote-production---re-index-fedora--solr).
+Once the previous rebuild process is complete, you should rebuild your _Solr_ search index using the remaining steps documented in [Step 17: On Remote Production - Re-Index Fedora & Solr](https://github.com/Islandora-Collaboration-Group/ISLE/blob/master/docs/install/install-production-migrate.md#step-17-on-remote-production---re-index-fedora--solr).
 
   - Open a terminal in the _isle-fedora-ld_ container, `docker exec -it isle-fedora-ld bash` (or using the terminal opened in the previous step), and then run `cd utility_scripts/; ./updateSolrIndex.sh`.
+  - Or, if you prefer (I do) try this from the terminal on your host: `docker exec -w /utility_scripts isle-fedora-ld .//updateSolrIndex.sh`.
 
 This rebuilding process may take a few minutes.  Proceed to the check your work after some minutes have passed.
 
 ### Check Your Work
 
-  - Visit the repository home page at https://isle.localdomain/islandora/object/islandora:root (demo) or https://yourprojectnamehere.localdomain/islandora/object/islandora:root (local).  You should see new collections on the first page of your display.  
-  - Follow the install documentation for enabling the _Islandora Simple Search_ block and test _Solr_ by searching for a term like "Ley".
+  - Visit the repository home page at https://isle.localdomain/islandora/object/islandora:root (demo) or https://yourprojectnamehere.localdomain/islandora/object/islandora:root (local).  You should see new collections on the first page of your display.
+  - If your installation has no "Search" block enabled, follow the install documentation for enabling the _Islandora Simple Search_ block and test _Solr_ by searching for a term like "Ley".
 
 # Feedback is Welcome
 
