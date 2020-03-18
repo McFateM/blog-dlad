@@ -20,11 +20,12 @@ To help implement this process efficiently and effectively I'm first turning to 
 The command line process in my local host/workstation terminal looks like this:
 
 ```
-docker exec -w /var/www/html/sites/all/modules/islandora/ isle-apache-ld git clone https://github.com/Islandora-Labs/islandora_datastream_exporter.git --recursive
-docker exec -w /var/www/html/sites/all/modules/islandora/ isle-apache-ld git clone https://github.com/pc37utn/islandora_datastream_replace.git --recursive
-docker exec -w /var/www/html/sites/all/modules/islandora/ isle-apache-ld chown -R islandora:www-data *
-docker exec -w /var/www/html/sites/default isle-apache-ld drush en islandora_datastream_exporter islandora_datastream_replace -y
-docker exec -w /var/www/html/sites/default isle-apache-ld drush cc drush -y
+Apache=isle-apache-ld
+docker exec -w /var/www/html/sites/all/modules/islandora/ ${Apache} git clone https://github.com/Islandora-Labs/islandora_datastream_exporter.git --recursive
+docker exec -w /var/www/html/sites/all/modules/islandora/ ${Apache} git clone https://github.com/pc37utn/islandora_datastream_replace.git --recursive
+docker exec -w /var/www/html/sites/all/modules/islandora/ ${Apache} chown -R islandora:www-data *
+docker exec -w /var/www/html/sites/default ${Apache} drush en islandora_datastream_exporter islandora_datastream_replace -y
+docker exec -w /var/www/html/sites/default ${Apache} drush cc drush -y
 ```
 
 ## Exporting "grinnell:" Namespace Objects
@@ -32,9 +33,10 @@ docker exec -w /var/www/html/sites/default isle-apache-ld drush cc drush -y
 I've elected to export all of the "grinnell:" namespace objects to my _private:_ filesystem which resides on my host at `~/GitHub/dg-isle/private` and maps into my _Apache_ container as `/var/www/private`.  The commands are:
 
 ```
-docker exec -w /var/www/ isle-apache-ld chown -R islandora:www-data private
-docker exec -w /var/www/ isle-apache-ld chmod 775 private
-docker exec -w /var/www/html/sites/default/ isle-apache-ld drush -u 1 islandora_datastream_export --export_target=/var/www/private --query=PID:grinnell* --dsid=MODS
+Apache=isle-apache-ld
+docker exec -w /var/www/ ${Apache} chown -R islandora:www-data private
+docker exec -w /var/www/ ${Apache} chmod 775 private
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 islandora_datastream_export --export_target=/var/www/private --query=PID:grinnell* --dsid=MODS
 ```
 
 The last command in the above set populated the _export\_target_ directory mentioned above, and the result looks like this:
@@ -70,7 +72,8 @@ I found a simple and effective process for editing the `.xml` files that were pr
 My command line "test" import of all the exported objects goes like this:
 
 ```
-docker exec -w /var/www/html/sites/default/ isle-apache-ld drush -u 1 islandora_datastream_replace --dsid=MODS --source=/var/www/private/ --namespace=grinnell
+Apache=isle-apache-ld
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 islandora_datastream_replace --dsid=MODS --source=/var/www/private/ --namespace=grinnell
 ```
 
 And the output from that command, with whitelines removed, is:
