@@ -7,9 +7,11 @@ tags:
   - MODS
   - Export
   - Replace
+  - islandora_datastream_export
+  - islandora_datastream_replace
 ---
 
-The transition to distance learning that's taking place at _Grinnell College_ in the wake of the _COVID-19_ pandemic may afford _GC Libraries_ an opportunity to do some overdue and necessary metadata cleaning in [Digital.Grinnell](https://digital.grinnell.edu).  I believe that library staff who cannot take their usual work home will be asked to assist, and I am personally grateful that our leadership sees fit to do this, and am looking forward to supporting and working with my outstanding colleagues who will tackle this task.
+The transition to distance learning and social distancing that's taken place at _Grinnell College_ in the wake of the _COVID-19_ pandemic may afford _GC Libraries_ an opportunity to do some overdue and necessary metadata cleaning in [Digital.Grinnell](https://digital.grinnell.edu).  I believe that library staff who cannot take their usual work home will be asked to assist, and I am personally grateful that our leadership sees fit to do this, and am looking forward to supporting and working with my outstanding colleagues who will tackle this task.
 
 To help implement this process efficiently and effectively I'm first turning to "[Exporting, Editing, & Replacing MODS Datastreams](https://github.com/calhist/documentation/wiki/Exporting,-Editing,-&-Replacing-MODS-Datastreams)", a workflow developed by the good folks at [The California Historical Society](https://californiahistoricalsociety.org/).  I'll initiate the workflow with installation of two _Drush_ tools on my [local/development instance](https://dg.localdomain) of [ISLE](https://github.com/Islandora-Collaboration-Group/ISLE) on my Mac workstation.
 
@@ -133,5 +135,7 @@ docker exec -w /var/www/html/sites/default/ isle-apache-ld drush cc all
 # Woot!
 
 It works. However, it's worth noting that changes made to objects' `title` field were NOT reflect in the object titles, presumably because those come from each object's _Dublin Core_, or "DC" datastream.  In order to ensure that those get updated we have to run the system's prescibed _MODS-to-DC_ self-transform.  I have a _Drush_ command for that too, but that's a subject for another post.
+
+Next step, repeat the installation in production and export ALL of the objects in preparation for review and editing.
 
 And that's a wrap.  Until next time... :smile:
