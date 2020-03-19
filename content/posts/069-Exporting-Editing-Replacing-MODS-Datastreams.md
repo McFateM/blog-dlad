@@ -1,7 +1,7 @@
 ---
 title: "Exporting, Editing, & Replacing MODS Datastreams"
 publishdate: 2020-03-17
-lastmod: 2020-03-17T14:46:51-05:00
+lastmod: 2020-03-19T10:21:12-05:00
 draft: false
 tags:
   - MODS
@@ -126,19 +126,76 @@ Note that some replacment operations clearly took longer than others, and in som
 
 ## Test Results
 
-Clearly, the changes I made to the three MODS `.xml` files are present in the repository.  However, they are NOT reflected in the objects' MODS display, presumably because _Digital.Grinnell_ uses a _Solr_ display of MODS data, and _Solr_ has not been re-indexed.
+Clearly, the changes I made to the four MODS `.xml` files are present in the repository.  However, they are NOT reflected in the objects' MODS display, presumably because _Digital.Grinnell_ uses a _Solr_ display of MODS data, and _Solr_ has not been re-indexed.
 
-So, I elected to borrow this gem from my [blog post 046](https://dlad.summittdweller.com/en/posts/046-dg-fedora-a-portable-object-repository/):
+So, I elected to validate and enable an old feature of my [IDU - Islandora Drush Utilities](https://github.com/DigitalGrinnell/idu) module, the "DCTransform" command. Coupling "DCTransform" with the previously validated "SelfTransform" command and the "--reorder" option appears clean things up as expected.
 
 ```
-docker exec -w /utility_scripts isle-fedora-ld ./updateSolrIndex.sh
+docker exec -w /var/www/html/sites/default/ isle-apache-ld drush cc all
+```
+
+```
+Apache=isle-apache-ld
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:25497 DCTransform
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:25497 SelfTransform --reorder
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:3246 DCTransform
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:3246 SelfTransform --reorder
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:11569 DCTransform
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:11569 SelfTransform --reorder
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:20575 DCTransform
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 iduF grinnell:20575 SelfTransform --reorder
 docker exec -w /var/www/html/sites/default/ isle-apache-ld drush cc all
 ```
 
 # Woot!
 
-It works. However, it's worth noting that changes made to objects' `title` field were NOT reflect in the object titles, presumably because those come from each object's _Dublin Core_, or "DC" datastream.  In order to ensure that those get updated we have to run the system's prescibed _MODS-to-DC_ self-transform.  I have a _Drush_ command for that too, but that's a subject for another post.
+It works. However, it's worth noting that changes made to objects' `title` field were NOT reflected in the object titles, presumably because the title becomes a "property" of the object itself, held apart from either the MODS or DC datastreams.
 
 Next step, repeat the installation in production and export ALL of the objects in preparation for review and editing.
+
+# Exporting By Collection
+
+After the successful tests docmented above, I repeated this process for _Digital.Grinnell_ production on host _DGDocker1_.  The export worked nicely; however, the process produces so many _MODS_ .xml files (9,084 is the count) that I can't easily work with them, there are too many to "glob" using a single wildcard spec.  So, I'm going to try to formulate an export that isolates objects into their primary collections.  A test of this process on my local/dev instance of _ISLE_ looks likes this:
+
+```
+Collection=jimmy-ley
+Apache=isle-apache-ld
+Target=/tmp
+docker exec -w ${Target} ${Apache} mkdir -p grinnell/${Collection}
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 islandora_datastream_export --export_target=${Target}/grinnell/${Collection} --query=RELS_EXT_isMemberOfCollection_uri_mlt:\"info:fedora/grinnell:${Collection}\" --dsid=MODS
+```
+
+## In Production
+
+The same export in production on _DGDocker1_ looks like this:
+
+```
+Collection=jimmy-ley
+Apache=isle-apache-dg
+Target=/utility-scripts
+docker exec -w ${Target} ${Apache} mkdir -p grinnell/${Collection}
+docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 islandora_datastream_export --export_target=${Target}/grinnell/${Collection} --query=RELS_EXT_isMemberOfCollection_uri_mlt:\"info:fedora/grinnell:${Collection}\" --dsid=MODS
+```
+
+This command set produced a total of 210 MODS .xml files in the _Apache_ container's new `/utility-scripts/grinnell/jimmy-ley` directory.  All that's required to repeat it for other collections in the `grinnell:` namespace is to repeat the command set changing the value of `Collection=` as needed.
+
+There is a list of ALL _Digital.Grinnell_ collections in [this public gist](https://gist.github.com/McFateM/5bd7e5b0fa5d2928b2799d039a4c0fab), making it possible to loop the aforementioned command set like so:
+
+```
+Apache=isle-apache-dg
+Target=/utility-scripts
+wget https://gist.github.com/McFateM/5bd7e5b0fa5d2928b2799d039a4c0fab/raw/collections.list
+while read collection
+do
+    q=RELS_EXT_isMemberOfCollection_uri_mlt:*${collection}
+    echo Processing collection '${collection}'; Query is '${q}'...
+    docker exec -w ${Target} ${Apache} mkdir -p exported-MODS/${collection}
+    docker exec -w /var/www/html/sites/default/ ${Apache} drush -u 1 islandora_datastream_export --export_target=${Target}/exported-MODS/${Collection} --query=${q} --dsid=MODS
+done < collections.list
+```
+
+# Next Steps
+
+I'll open another post so that I can document the process of collecting and processing all the dumped _MODS_ records presumably using [OpenRefine](https://openrefine.org/).
 
 And that's a wrap.  Until next time... :smile:
