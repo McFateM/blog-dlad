@@ -1,8 +1,8 @@
 ---
 title: "Exporting, Editing, & Replacing MODS Datastreams: Technical Details"
 publishdate: 2020-04-23
-lastmod: 2020-04-23T14:44:19-05:00
-draft: true
+lastmod: 2020-04-23T16:10:40-05:00
+draft: false
 tags:
   - MODS
   - Export
@@ -12,29 +12,28 @@ tags:
   - islandora_datastream_export
   - islandora_datastream_replace
   - islandora_mods_via_twig
+  - Map-MODS-to-MASTER
 ---
-
-The transition to distance learning, social distancing, and more remote work at _Grinnell College_ in the wake of the _COVID-19_ pandemic may afford _GC Libraries_ an opportunity to do some overdue and necessary metadata cleaning in [Digital.Grinnell](https://digital.grinnell.edu).
 
 # A 5-Step Workflow
 
-This turned out to be a much more difficult undertaking than I imagined, but as of mid-April, 2020, I have a 5-step workflow that actually works.  This post will introduce all four step, but only provides details for Step 3, _Editing the MODS TSV Data_, the portion that metadata editors need to be aware of.  All technical details, and steps 1, 2, 4 and 5 will be addressed in a subseqent blog post.
+This document is follow-up, with technical details, to [Exporting, Editing, & Replacing MODS Datastreams](https://dlad.summittdweller.com/en/posts/069-exporting-editing-replacing-mods-datastreams/), post 069, in my blog.  In case you missed it, the aforementioned post was written specifically for metadata editors working on the 2020 _Grinnell College Libraries_ review of _Digital Grinnell_ MODS metadata.
 
 Attention: This document uses a shorthand `./` in place of the frequently referenced `//STORAGE/LIBRARY/ALLSTAFF/DG-Metadata-Review-2020-r1/` directory.  For example, `./social-justice` is equivalent to the _Social Justice_ collection sub-directory at `//STORAGE/LIBRARY/ALLSTAFF/DG-Metadata-Review-2020-r1/social-justice`.
 
-The five steps are:
+Briefly, the five steps in this workflow are:
 
-  1. Export of all `grinnell:*` _MODS_ datastreams using `drush islandora\_datastream\_export`.  This step, last performed on April 14, 2020, was responsible for creating all of the `grinnell\_<PID>\_MODS.xml` exports found in `./<collection-PID>`.
+  1. Export of all `grinnell:*` _MODS_ datastreams using `drush islandora_datastream_export`.  This step, last performed on April 14, 2020, was responsible for creating all of the `grinnell_<PID>_MODS.xml` exports found in `./<collection-PID>`.
 
-  2. Execute my _Map-MODS-to-MASTER_ _Python 3_ script on iMac _MA8660_ to create a `mods.tsv` file for each collection, along with associated `grinnell\_<PID>\_MODS.log` and `grinnell\_<PID>\_MODS.remainder` files for each object. The resultant `./<collection-PID>/mods.tsv` files are tab-seperated-value (.tsv) files, and they are **key** to this process.
+  2. Execute my _Map-MODS-to-MASTER_ _Python 3_ script on iMac _MA8660_ to create a `mods.tsv` file for each collection, along with associated `grinnell_<PID>_MODS.log` and `grinnell_<PID>_MODS.remainder` files for each object. The resultant `./<collection-PID>/mods.tsv` files are tab-seperated-value (.tsv) files, and they are **key** to this process.
 
-  3. Edit the MODS .tsv files.  Refer to the dedicated section below for details and guidance.
+  3. Edit the MODS .tsv files.  Refer [Exporting, Editing, & Replacing MODS Datastreams](https://dlad.summittdweller.com/en/posts/069-exporting-editing-replacing-mods-datastreams/) for details and guidance.
 
-  4. Use `drush islandora\_mods\_via\_twig` in each ready-for-update collection to generate new .xml MODS datastream files. For a specified collection, this command will find and read the `./<collection-PID>/mods-imvt.tsv` and create one `./<collection-PID>/ready-for-datastream-replace/grinnell\_<PID>\_MODS.xml` file for each object.
+  4. Use `drush islandora_mods_via_twig` in each ready-for-update collection to generate new .xml MODS datastream files. For a specified collection, this command will find and read the `./<collection-PID>/mods-imvt.tsv` and create one `./<collection-PID>/ready-for-datastream-replace/grinnell_<PID>_MODS.xml` file for each object.
 
-  5. Execute the `drush islandora\_datastream\_replace` command once for each collection.  This command will process each `./<collection-PID>/ready-for-datastream-replace/grinnell\_<PID>\_MODS.xml` file and replace the corresponding object's MODS datastream with the contents of the .xml file.  The _digital\_grinnell_ branch version of the `islandora\_datastream\_replace` command also performs an implicit update of the object's "Title", a transform of the new MODS to DC (_Dublin Core_), and a re-indexing of the new metadata in _Solr_.
+  5. Execute the `drush islandora_datastream_replace` command once for each collection.  This command will process each `./<collection-PID>/ready-for-datastream-replace/grinnell_<PID>_MODS.xml` file and replace the corresponding object's MODS datastream with the contents of the .xml file.  The _digital_grinnell_ branch version of the `islandora_datastream_replace` command also performs an implicit update of the object's "Title", a transform of the new MODS to DC (_Dublin Core_), and a re-indexing of the new metadata in _Solr_.
 
-
+<!--
 
     processes the aforementioned _mods-via-twig_ command in my _mods-via-twig_ local platform to generate updated `grinnell_<PID>_MODS.xml` files on a collection-by-collection basis.
 9. Copying via `rsync` of all generated `grinnell_<PID>_MODS.xml` files back to _Digital Grinnell_ at _dgdocker1.grinnell.edu:/opt/ISLE/_.
