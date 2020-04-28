@@ -8,7 +8,7 @@ hasCJKLanguage = true
 
 summaryLength = 40    # default is 70 words
 buildFuture = true
-buildDate = '2020-04-23 16:22'
+buildDate = '2020-04-27 16:19'
 
 copyright = "&copy;{year}, All Rights Reserved"
 timeout = 10000
