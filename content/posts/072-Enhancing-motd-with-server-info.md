@@ -1,5 +1,5 @@
 ---
-title: "Replacing _motd_ with _server-info_"
+title: "Enhancing `motd` with `server-info`"
 publishdate: 2020-05-05
 lastmod: 2020-05-05T17:26:47-05:00
 draft: false
