@@ -1,5 +1,5 @@
 ---
-title: "Enhancing `motd` with `server-info`"
+title: "Enhancing 'motd' with 'server-info'"
 publishdate: 2020-05-05
 lastmod: 2020-05-05T17:26:47-05:00
 draft: false
@@ -10,7 +10,7 @@ tags:
   - figlet
 ---
 
-My memory isn't what it used to be, but I have this blog. :smile: And on the handful of CentOS and Ubuntu servers that I maintain, I have my  [_server-info_](https://github.com/McFateM/server-info) script, my replacement for [_motd_](https://en.wikipedia.org/wiki/Motd_(Unix\)). :grin:
+My memory isn't what it used to be, but I have this blog. :smile: And on the handful of CentOS and Ubuntu servers that I maintain, I have my  [_server-info_](https://github.com/McFateM/server-info) script, my replacement for [_motd_]('https://en.wikipedia.org/wiki/Motd_(Unix)'). :grin:
 
 ## Requirements: _mdv_ and _figlet_
 
