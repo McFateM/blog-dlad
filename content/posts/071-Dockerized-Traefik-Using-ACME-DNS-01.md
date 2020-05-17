@@ -1,7 +1,6 @@
 ---
 title: "Dockerized Traefik Host Using ACME DNS-01 Challenge"
 publishdate: 2020-04-27
-lastmod: 2020-05-17T09:42:58-05:00
 draft: false
 tags:
   - Docker
