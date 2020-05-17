@@ -12,7 +12,7 @@ tags:
 
 Lately my passwordless, SSH logins to all my servers have quit working, at least they seem to have stopped working from the only accessible "work" workstation that I have at the moment, _MA7053_. Since our enterprise malware mitigation agent, _Traps_, is blocking my access to my "real" workstation, _MA8660_, this has become more than just a nuisance.
 
-So here's what I came up with as a process to try and determine exactly where the problems lie...
+So here's what I came up with as a process to try and determine exactly where the problems are...
 
 ## To Debug SSHD Issues with Key Logins
 
