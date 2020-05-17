@@ -8,7 +8,7 @@ hasCJKLanguage = true
 
 summaryLength = 40    # default is 70 words
 buildFuture = true
-buildDate = '2020-05-05 18:50'
+buildDate = '2020-05-17 13:38'
 
 copyright = "&copy;{year}, All Rights Reserved"
 timeout = 10000
@@ -16,7 +16,7 @@ enableEmoji = true
 paginate = 10
 rssLimit = 100
 
-enableGitInfo = false
+enableGitInfo = true
 googleAnalytics = "UA-131150861-2"
 disqusShortname = "digital-library-applications-developer-blog"
 
