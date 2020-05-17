@@ -18,6 +18,9 @@ This post builds on [My dockerized-server Config](https://dlad.summittdweller.co
 
 Just like my old [dockerized-server](https:/github.com/McFateM/dockerized-server) configuration, this project revolves around a workflow that will setup a "Dockerized" server complete with _Traefik_, _Portainer_, and _Who Am I_. Like its predecessor, it should be relatively easy to add additional services or application stacks to any server that is initially configured using this package.  For "static" servers have a look at my [docker-bootstrap Workflow ](https://dlad.summittdweller.com/en/posts/posts/008-docker-bootstrap-workflow/) for an example.
 
+| All of my associated research and testing for this issue can be found in a _OneTab_ at https://www.one-tab.com/page/9E_29YLjSGa9iAeckxMbIQ |
+| --- |
+
 To overcome the _HTTP-01 challenge_ issue mentioned above, a colleague of mine at _Grinnell College_ suggested we move to a _DNS-01 challenge_, and formulated a propsal to do so.
 
 ## DNS-01 Proposal
@@ -122,8 +125,8 @@ time="2020-05-17T13:09:14-04:00" level=debug msg="http: TLS handshake error from
 time="2020-05-17T13:09:14-04:00" level=debug msg="http: TLS handshake error from 132.161.249.251:51448: remote error: tls: bad certificate"
 ```
 
-| --- |
 | Since this test appears to have failed "unexpectedly", I'm going forego the next test that would attempt the same but using LE's "production" CA-server, and proceed straight to DNS-01 testing. |
+| --- |
 
 ### Test 2 - DNS-01 Challenge Using LE's Staging Server
 
@@ -149,8 +152,8 @@ time="2020-05-17T13:43:01-04:00" level=debug msg="No ACME certificate generation
 time="2020-05-17T13:43:01-04:00" level=debug msg="http: TLS handshake error from 132.161.249.251:52136: remote error: tls: bad certificate"
 ```
 
+| Since this test appears to have failed in same "unexpected" manner as Test 1, I'm going forego subsequent tests until this can be resolved. |
 | --- |
-| Since this test appears to have failed in same "unexpected" manner Test 1, I'm going forego subsequentl tests until this can be resolved. |
 
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
