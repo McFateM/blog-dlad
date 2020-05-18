@@ -175,7 +175,7 @@ The sites all appear to work, except for the landing page at https://static.grin
 
 The first error encountered in the log is at line 243 and it reads:
 
-  `time="2020-05-18T09:21:35-05:00" level=error msg="Unable to obtain ACME certificate for domains \"static.grinnell.edu\": cannot get ACME client azure: Get \"http://169.254.169.254/metadata/instance/compute/subscriptionId?api-version=2017-12-01&format=text\": dial tcp 169.254.169.254:80: i/o timeout" providerName=http.acme routerName=traefik-secure@docker rule="Host(\`static.grinnell.edu\`) && (PathPrefix(\`/api\`) || PathPrefix(\`/dashboard\`))"`
+>time="2020-05-18T09:21:35-05:00" level=error msg="Unable to obtain ACME certificate for domains \"static.grinnell.edu\": cannot get ACME client azure: Get \"http://169.254.169.254/metadata/instance/compute/subscriptionId?api-version=2017-12-01&format=text\": dial tcp 169.254.169.254:80: i/o timeout" providerName=http.acme routerName=traefik-secure@docker rule="Host(`static.grinnell.edu`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
 
 ## Test 4 - Replace Invalid Certs with Valid
 
