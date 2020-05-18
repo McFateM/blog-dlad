@@ -167,5 +167,28 @@ Note that I was ultimately able to get all the services on `static.grinnell.edu`
   - Stopping containers... `docker stop [id]; docker rm -v [id]`
   - Correct `service-stack` names... the correct name convention is `service-stack` where _service_ is the name of the service, not the container name, and _stack_ is the name of the sub-directory
 
+## Test 3 - Static to DNS-01 Production
+
+This morning, May 18, 2020, I switched the configuration on `static.grinnell.edu` back to DNS-01 using LE's production CA-server, and tried again.  The log from this test as well as an obfuscated `acme.json` can be seen in [this gist](https://gist.github.com/McFateM/4ad29fa0a30e2a3fc5ef3b4b566a031a).
+
+The sites all appear to work, except for the landing page at https://static.grinnell.edu/ which returns a 404, but none have valid certs and therefore require browser security exceptions again. I found the landing page problem in `restart.sh`, fixed it, and did a `docker-compose up -d` in `./landing` to get that page running.
+
+The first error encountered in the log is at line 243 and it reads:
+
+  `time="2020-05-18T09:21:35-05:00" level=error msg="Unable to obtain ACME certificate for domains \"static.grinnell.edu\": cannot get ACME client azure: Get \"http://169.254.169.254/metadata/instance/compute/subscriptionId?api-version=2017-12-01&format=text\": dial tcp 169.254.169.254:80: i/o timeout" providerName=http.acme routerName=traefik-secure@docker rule="Host(\`static.grinnell.edu\`) && (PathPrefix(\`/api\`) || PathPrefix(\`/dashboard\`))"`
+
+## Test 4 - Replace Invalid Certs with Valid
+
+This test is really a remediation step as in it I'll replace the now "broken" `./traefik/data/acme.json` file with the working copy (`./traefik/data/http-01-acme.json`) that was created in "Returning to Static.Grinnell.edu" above. I do this on the `static.grinnell.edu` host as _root_ like so:
+
+```
+cd /opt/containers/traefik/data
+rm -f acme.json
+cp -f http-01-acme.json acme.json
+```
+
+Unfortunately, the old certs don't match the new services so they are invalid and the site all require browser security exceptions again.
+
+
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
