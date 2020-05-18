@@ -167,7 +167,7 @@ Note that I was ultimately able to get all the services on `static.grinnell.edu`
   - Stopping containers... `docker stop [id]; docker rm -v [id]`
   - Correct `service-stack` names... the correct name convention is `service-stack` where _service_ is the name of the service, not the container name, and _stack_ is the name of the sub-directory
 
-## Test 3 - Static to DNS-01 Production
+### Test 3 - Static to DNS-01 Production
 
 This morning, May 18, 2020, I switched the configuration on `static.grinnell.edu` back to DNS-01 using LE's production CA-server, and tried again.  The log from this test as well as an obfuscated `acme.json` can be seen in [this gist](https://gist.github.com/McFateM/4ad29fa0a30e2a3fc5ef3b4b566a031a).
 
@@ -177,7 +177,7 @@ The first error encountered in the log is at line 243 and it reads:
 
 >time="2020-05-18T09:21:35-05:00" level=error msg="Unable to obtain ACME certificate for domains \"static.grinnell.edu\": cannot get ACME client azure: Get \"http://169.254.169.254/metadata/instance/compute/subscriptionId?api-version=2017-12-01&format=text\": dial tcp 169.254.169.254:80: i/o timeout" providerName=http.acme routerName=traefik-secure@docker rule="Host(`static.grinnell.edu`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
 
-## Test 4 - Replace Invalid Certs with Valid
+### Test 4 - Replace Invalid Certs with Valid
 
 This test is really a remediation step as in it I'll replace the now "broken" `./traefik/data/acme.json` file with the working copy (`./traefik/data/http-01-acme.json`) that was created in "Returning to Static.Grinnell.edu" above. I do this on the `static.grinnell.edu` host as _root_ like so:
 
@@ -187,13 +187,13 @@ rm -f acme.json
 cp -f http-01-acme.json acme.json
 ```
 
-Unfortunately, the old certs don't match the new services so they are invalid and the site all require browser security exceptions again.
+Unfortunately, the old certs don't match the new services so they are invalid and the sites all require browser security exceptions again.
 
-## Test 5 - Static Returned to Staging with DNS-01
+### Test 5 - Static Returned to Staging with DNS-01
 
 In this test I've moved the values of our Azure `.env` variables directly into `traefik.yml` and I have prudently switched the process back to using LE's staging server.  The complete log and obfuscated `acme.json` are in [this gist](https://gist.github.com/McFateM/3f4bc94a6d1031debcf2dfbec305093b).
 
-The log contains a series of errors like the one below, and all seven sites are up and running but with browser security exceptions reqiured.
+The log contains a series of errors like the one below, and all seven sites are up and running but with browser security exceptions still required.
 
 > time="2020-05-18T11:58:02-05:00" level=debug msg="Serving default certificate for request: \"static.grinnell.edu\""
 > time="2020-05-18T11:58:02-05:00" level=debug msg="http: TLS handshake error from 132.161.249.72:57914: remote error: tls: bad certificate"
