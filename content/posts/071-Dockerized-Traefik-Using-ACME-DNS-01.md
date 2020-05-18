@@ -189,6 +189,14 @@ cp -f http-01-acme.json acme.json
 
 Unfortunately, the old certs don't match the new services so they are invalid and the site all require browser security exceptions again.
 
+## Test 5 - Static Returned to Staging with DNS-01
+
+In this test I've moved the values of our Azure `.env` variables directly into `traefik.yml` and I have prudently switched the process back to using LE's staging server.  The complete log and obfuscated `acme.json` are in [this gist](https://gist.github.com/McFateM/3f4bc94a6d1031debcf2dfbec305093b).
+
+The log contains a series of errors like the one below, and all seven sites are up and running but with browser security exceptions reqiured.
+
+> time="2020-05-18T11:58:02-05:00" level=debug msg="Serving default certificate for request: \"static.grinnell.edu\""
+> time="2020-05-18T11:58:02-05:00" level=debug msg="http: TLS handshake error from 132.161.249.72:57914: remote error: tls: bad certificate"
 
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
