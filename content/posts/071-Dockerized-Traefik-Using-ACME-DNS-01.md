@@ -198,5 +198,12 @@ The log contains a series of errors like the one below, and all seven sites are 
 > time="2020-05-18T11:58:02-05:00" level=debug msg="Serving default certificate for request: \"static.grinnell.edu\""
 > time="2020-05-18T11:58:02-05:00" level=debug msg="http: TLS handshake error from 132.161.249.72:57914: remote error: tls: bad certificate"
 
+### Test 6 - Static Returned to Production with HTTP-01
+
+I need to put `static.grinnell.edu` back to work and return to testing on `dgdocker3.grinnell.edu`, so this test will return _static_ to using the LE production server and HTTP-01 challenge. The complete log and obfuscated `acme.json` are in [this gist](https://gist.github.com/McFateM/d504088f8df79ebf28bb70eec03500d8).
+
+All seven sites are working, and have valid certs. That's my cue to move back to `dgdocker3.grinnell.edu`.
+
+
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
