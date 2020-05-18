@@ -155,7 +155,7 @@ time="2020-05-17T13:43:01-04:00" level=debug msg="No ACME certificate generation
 time="2020-05-17T13:43:01-04:00" level=debug msg="http: TLS handshake error from 132.161.249.251:52136: remote error: tls: bad certificate"
 ```
 
-| Since this test appears to have failed in same "unexpected" manner as Test 1, I'm going forego subsequent tests until this can be resolved. |
+| Since this test appears to have failed in the same "unexpected" manner as Test 1, I'm going forego subsequent tests until this can be resolved. |
 | --- |
 
 ## Returning to Static.Grinnell.edu
@@ -211,6 +211,20 @@ Note that even with working sites and new, valid certs I still see a series of e
 
 So, apparently those errors have nothing to do with the challenge? The plot thickens.
 
+## Back to DGDocker3
 
+The debug messages (not errors) like `TLS handshake error from 132.161.249.72:60953: remote error: tls: bad certificate` seem to be present in every test I've run, even when valid certs are issued. So it seems safe to assume they are not critical.  To try and work around them I'm going to return my testing to `dgdocker3.grinnell.edu` and start anew there with Test 7.
 
-And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
+### Test 7 - DGDocker3 Test with Staging and DNS-01
+
+This test will reset `dgdocker3.grinnell.edu` using LE's staging server and our DNS-01 challenge just as it was configured in Test 6 above. The complete log and obfuscated `acme.json` are in [this gist](https://gist.github.com/McFateM/b525152c822cdb3dd85d5214c06b1d8e).
+
+There were no errors or warnings in the log, and all three sites are working without valid certs, therefore all require browser security exceptions, but that is to be expected since the LE staging server was used. The mysterious "TLS handshake error" debug messages do still appear. In light of this, my next test will use the same configuration, but switched back to DNS-01.
+
+### Test 8 - DGDocker3 Test with Production and DNS-01
+
+This test will reset `dgdocker3.grinnell.edu` using LE's production server and our DNS-01 challenge just as it was configured in Test 7 above. The complete log and obfuscated `acme.json` are in [this gist](https://gist.github.com/McFateM/bcc9bfcd79ba5f54d569cad4aaf30457).
+
+Again, there were no errors or warnings in the log, and all three sites are working, but they still have no valid certs, therefore all require browser security exceptions. Again, the "TLS handshake error" messages are still present.  **What are those meant to tell us?**
+
+And that's a good place to break... because I'm exhausted and can't imagine what to try next.  Too many questions here, not enough answsers.  :frowning:
