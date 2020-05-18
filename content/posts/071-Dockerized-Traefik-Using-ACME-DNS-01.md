@@ -204,6 +204,13 @@ I need to put `static.grinnell.edu` back to work and return to testing on `dgdoc
 
 All seven sites are working, and have valid certs. That's my cue to move back to `dgdocker3.grinnell.edu`.
 
+Note that even with working sites and new, valid certs I still see a series of errors like this one:
+
+> time="2020-05-18T12:52:18-05:00" level=debug msg="Serving default certificate for request: \"static.grinnell.edu\""
+> time="2020-05-18T12:52:18-05:00" level=debug msg="http: TLS handshake error from 132.161.249.72:60953: remote error: tls: bad certificate"
+
+So, apparently those errors have nothing to do with the challenge? The plot thickens.
+
 
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
