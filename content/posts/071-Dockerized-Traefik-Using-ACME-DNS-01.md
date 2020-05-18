@@ -6,11 +6,15 @@ tags:
   - Docker
   - Traefik
   - Portainer
+  - Watchtower
   - dockerized-server
   - traefik.frontend.rule
   - ACME
   - DNS-01
+  - HTTP-01
   - docker-traefik2-host
+  - docker-compose
+  - service-stack
 ---
 
 This post builds on [My dockerized-server Config](https://dlad.summittdweller.com/en/posts/042-my-dockerized-server-config/) and attempts to change what was a problematic [ACME HTTP-01 or httpChallenge](https://docs.traefik.io/https/acme/#httpchallenge) in [Traefik](https://traefik.io) and [Let's Encrypt](https://letsencrypt.org) to an [ACME DNS-01 or dnsChallenge](https://docs.traefik.io/https/acme/#dnschallenge). The problem with the old _HTTP-01_ or _httpChallenge_ is that it requires the creation of a valid and widely accessible "A" record in our DNS _before_ the creation of a cert; the record has to be in place so that the _Let's Encrypt_ CA-server can find it to confirm that the request is valid.  However, doing this puts the cart-before-the-horse, so-to-speak, since we like to have a valid cert in place _before_ we add a new DNS record.
@@ -157,6 +161,11 @@ time="2020-05-17T13:43:01-04:00" level=debug msg="http: TLS handshake error from
 ## Returning to Static.Grinnell.edu
 
 Since more than a week has passed since I hit LE's rate limit, I thought that this evening I'd try my luck with `static.grinnell.edu` again, this time with an HTTP-01 challenge and LE's production server. It worked, except that some of my stack_service names were incorrect. What I really wanted to learn from this is what an `acme.json` file should look like when valid certs have been created. The answer can be found in [this gist](https://gist.github.com/McFateM/4f1524627a5ebbcbeae299d43d002640).
+
+Note that I was ultimately able to get all the services on `static.grinnell.edu` working properly, with valid certs, by stopping (see below) those containers that had incorrect names, fixing the router's service name in each corresponding `docker-compose.yml`, then doing a new `docker-compose up -d` to restart things. No additional cert validation or modification of _Traefik_ was needed.
+
+  - Stopping containers... `docker stop [id]; docker rm -v [id]`
+  - Correct `service-stack` names... the correct name convention is `service-stack` where _service_ is the name of the service, not the container name, and _stack_ is the name of the sub-directory
 
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
