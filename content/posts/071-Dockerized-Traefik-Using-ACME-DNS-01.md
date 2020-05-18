@@ -154,5 +154,9 @@ time="2020-05-17T13:43:01-04:00" level=debug msg="http: TLS handshake error from
 | Since this test appears to have failed in same "unexpected" manner as Test 1, I'm going forego subsequent tests until this can be resolved. |
 | --- |
 
+## Returning to Static.Grinnell.edu
+
+Since more than a week has passed since I hit LE's rate limit, I thought that this evening I'd try my luck with `static.grinnell.edu` again, this time with an HTTP-01 challenge and LE's production server. It worked, except that some of my stack_service names were incorrect. What I really wanted to learn from this is what an `acme.json` file should look like when valid certs have been created. The answer can be found in [this gist](https://gist.github.com/McFateM/4f1524627a5ebbcbeae299d43d002640).
+
 
 And that's a good place to break... I'll be back to complete this post after a little more development and testing.  :smile:
