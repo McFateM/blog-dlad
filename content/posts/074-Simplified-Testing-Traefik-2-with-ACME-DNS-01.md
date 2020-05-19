@@ -11,7 +11,7 @@ tags:
   - docker-compose
 ---
 
-This post is a simplified and focused follow-up to [Dockerized Traefik Host Using ACME DNS-01 Challenge](en/posts/071-dockerized-traefik-using-acme-dns-01/).
+This post is a simplified and focused follow-up to [Dockerized Traefik Host Using ACME DNS-01 Challenge](/en/posts/071-dockerized-traefik-using-acme-dns-01/).
 
 ## Simplify
 
