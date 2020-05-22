@@ -1,7 +1,6 @@
 ---
 title: "Exporting, Editing, & Replacing MODS Datastreams: Technical Details"
 publishdate: 2020-04-23
-lastmod: 2020-04-24T11:07:35-05:00
 draft: false
 tags:
   - MODS
@@ -13,7 +12,10 @@ tags:
   - islandora_datastream_replace
   - islandora_mods_via_twig
   - Map-MODS-to-MASTER
+  - islandora_mods_post_processing
 ---
+
+> Attention: On 21-May-2020 an optional, but recommended, sixth step was added to this workflow in the form of a new _Drush_ command: _islandora\_mods_post\_processing_, an addition to my previous work in [islandora_mods_via_twig](https://github.com/DigitalGrinnell/islandora_mods_via_twig). See my new post, [Islandora MODS Post Processing](/en/posts/075-islandora-mods-post-processing) for complete details.
 
 # A 5-Step Workflow
 

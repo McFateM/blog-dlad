@@ -1,7 +1,6 @@
 ---
 title: "Exporting, Editing, & Replacing MODS Datastreams"
 publishdate: 2020-03-17
-lastmod: 2020-04-23T13:27:42-05:00
 draft: false
 tags:
   - MODS
@@ -12,7 +11,10 @@ tags:
   - islandora_datastream_export
   - islandora_datastream_replace
   - islandora_mods_via_twig
+  - islandora_mods_post_processing
 ---
+
+> Attention: On 21-May-2020 an optional, but recommended, sixth step was added to this workflow in the form of a new _Drush_ command: _islandora\_mods_post\_processing_, an addition to my previous work in [islandora_mods_via_twig](https://github.com/DigitalGrinnell/islandora_mods_via_twig). See my new post, [Islandora MODS Post Processing](/en/posts/075-islandora-mods-post-processing) for complete details.
 
 The transition to distance learning, social distancing, and more remote work at _Grinnell College_ in the wake of the _COVID-19_ pandemic may afford _GC Libraries_ an opportunity to do some overdue and necessary metadata cleaning in [Digital.Grinnell](https://digital.grinnell.edu).
 
