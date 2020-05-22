@@ -11,13 +11,13 @@ tags:
 
 ## Purpose
 
-Many of the objects in _Digital.Grinnell_ are "shared" between two or more collections.  For example, [grinnell:10361](https://digital.grinnell.edu/islandora/object/grinell:10361) can be found in both the ["Social Justice"](https://digital.grinnell.edu/islandora/object/grinnell:social-justice) and "Student Scholarship"](https://digital.grinnell.edu/islandora/object/grinnell:student-scholarship) collections.
+Many of the objects in _Digital.Grinnell_ are "shared" between two or more collections.  For example, [grinnell:10361](https://digital.grinnell.edu/islandora/object/grinell:10361) can be found in both the ["Social Justice"](https://digital.grinnell.edu/islandora/object/grinnell:social-justice) and ["Student Scholarship"](https://digital.grinnell.edu/islandora/object/grinnell:student-scholarship) collections.
 
-This step in the workflow is designed to account for all of an object's "duplicate" MODS records no matter which collection(s) they appear in. The intent is to make "duplicates" easily recognizable so that we don't waste time editing them more than once.
+This step in the workflow is designed to account for all of an object's "duplicate" MODS record exports, no matter which collection(s) they appear in. The intent is to make the "duplicates" easy to recognize so that editors don't spend time modifying the same record more than once.
 
 ## Recap: The Original 5-Step Workflow
 
-This document is a follow-up and additon, with technical details, to [Exporting, Editing, & Replacing MODS Datastreams: Technical Details](/en/posts/070-exporting-editing-replacing-mods-datastreams-technical-details/), post 070, in my blog. As such, it should not be necessary for metadata editors working on the 2020 _Grinnell College Libraries_ review of _Digital Grinnell_ MODS metadata to implement this step, but it should help them better understand the process as a whole.
+This document is a follow-up and additon, with technical details, to [Exporting, Editing, & Replacing MODS Datastreams: Technical Details](/en/posts/070-exporting-editing-replacing-mods-datastreams-technical-details/), post 070, in my blog. As such, **it is NOT necessary for metadata editors working on the 2020 _Grinnell College Libraries_ review of _Digital Grinnell_ MODS metadata to implement this step**, but this document may help them better understand the process as a whole.
 
 Attention: This document uses a shorthand `./` in place of the frequently referenced `//STORAGE/LIBRARY/ALLSTAFF/DG-Metadata-Review-2020-r1/` directory.  For example, `./social-justice` is equivalent to the _Social Justice_ collection sub-directory at `//STORAGE/LIBRARY/ALLSTAFF/DG-Metadata-Review-2020-r1/social-justice`.
 
@@ -35,7 +35,7 @@ Briefly, the initial five steps in this workflow are:
 
 ## Step 6 - Islandora MODS Post Processing
 
-This is an optional, but recommended, step at the end of the workflow, and it is intended for use by a system admin, the same person who executes steps 4 and 5. The process calls for running a new _Drush_ command inside the _Apache_ container on the _Digital.Grinnell_ host.
+This is an optional, but recommended, step at the end of the workflow, and it is intended for use by a system admin, presumably the same person who executed steps 4 and 5. The process calls for running a new _Drush_ command inside the _Apache_ container on the _Digital.Grinnell_ host.
 
 To process a collection after completion of steps 4 and 5, all that's required is running a `drush islandora_mods_post_processing`. Running that command with the `--help` option produces:
 
