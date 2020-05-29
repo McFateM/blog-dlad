@@ -19,7 +19,7 @@ At present, May 28, 2020, the MODS display for a typical compound/child object i
 
 ![grinnell:10365 MODS Example](/images/post-076/grinnell-10365-mods.png "Sample MODS Display")
 
-The display feature demonstrated above is supposed to "hide" any field in the child object, the first 8 lines of metadata that appear above the "Group Record", which are __identical__ to the same field in the parent/compound object, the lines below the "Group Record" heading.  This rule applies to all fields **except** "Title" and "Creator", but if you look closely at the image above you'll see there are some duplicates displayed, specifically:
+The display feature demonstrated above is supposed to "hide" any field in the child object, the first 8 lines of metadata that appear above the "Group Record", which are __identical__ to the same field in the parent/compound object, the lines below the "Group Record" heading.  This rule applies to all fields **except** "Title" and "Supporting Hoste", but if you look closely at the image above you'll see there are some duplicates displayed, specifically:
 
   - Related Item: Digital Grinnell
   - Language: English
@@ -35,11 +35,25 @@ The aforementioned transform happens in a "hook" function called _islandora\_mod
 
 #### Hidden Elements
 
-Another function, _islandora\_mods\_display\_remove\_redundant\_rows_, from _theme.inc_ hides redundant rows by applying a CSS class named "hidden" to the elements of the child object MODS that have identical counterparts in the parent's MODS metadata.
+Another function, _islandora\_mods\_display\_remove\_redundant\_rows_, from _theme.inc_ hides redundant rows by applying a CSS class named `hidden` to the `<tr>` elements of the child object MODS that have identical counterparts in the parent's MODS metadata.
 
 ## Fixing the Displayed Duplicates
 
-I'm working on this now...
-  
+Found it, and fixed it too! The _islandora\_mods\_display\_remove\_redundant\_rows_ code in _theme.inc_ added the `hidden` class to `<tr>` elements like so:
+
+```php
+$elements[$i] = str_replace('<tr>', '<tr class="hidden">', $elements[$i]);
+```
+
+The problem with that statement is that **some table rows now have `xmlns:xlink` attributes** due to the recent addition of live links in some metadata fields.  As a result, those fields that now support live links could not be "hidden".  The same code now reads like so:
+
+```php
+$elements[$i] = str_replace('<tr', '<tr class="hidden"', $elements[$i]);
+```
+
+Note that the closing carret has been removed from both the search string and the replacement.  It works!  Yay:exclamation:  As a result, the same object metadata shown above now looks like this:
+
+![grinnell:10365 MODS Example - Corrected](/images/post-076/grinnell-10365-new-mods.png "Corrected MODS Display")
+
 
 And that's a wrap.  Until next time, stay safe and wash your hands! :smile:
