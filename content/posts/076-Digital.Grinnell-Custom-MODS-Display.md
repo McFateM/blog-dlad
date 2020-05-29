@@ -27,7 +27,7 @@ The display feature demonstrated above is supposed to "hide" any field in the ch
 
 ### Details
 
-The process of hiding "duplicate" metadata from a child/parent object pair is relatively simple, but it involves some XSL transformations ((XSLT)[https://en.wikipedia.org/wiki/XSLT]), so it's inherently messy. The heavy-lifting all takes place in Digital.Grinnell's [islandora_mods_display](https://github.com/DigitalGrinnell/islandora_mods_display) module.
+The process of hiding "duplicate" metadata from a child/parent object pair is relatively simple, but it involves some [XSL transformations (XSLT)](https://en.wikipedia.org/wiki/XSLT), so it's inherently messy. The heavy-lifting all takes place in Digital.Grinnell's [islandora_mods_display](https://github.com/DigitalGrinnell/islandora_mods_display) module.
 
 #### XSL Transform
 
@@ -41,13 +41,13 @@ Another function, _islandora\_mods\_display\_remove\_redundant\_rows_, from _the
 
 Found it, and fixed it too! The _islandora\_mods\_display\_remove\_redundant\_rows_ code in _theme.inc_ added the `hidden` class to `<tr>` elements like so:
 
-```php
+```
 $elements[$i] = str_replace('<tr>', '<tr class="hidden">', $elements[$i]);
 ```
 
 The problem with that statement is that **some table rows now have `xmlns:xlink` attributes** due to the recent addition of live links in some metadata fields.  As a result, those fields that now support live links could not be "hidden".  The same code now reads like so:
 
-```php
+```
 $elements[$i] = str_replace('<tr', '<tr class="hidden"', $elements[$i]);
 ```
 
