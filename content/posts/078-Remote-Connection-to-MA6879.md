@@ -9,9 +9,9 @@ tags:
   - remote
   - vnc
 ---
-_MA6879_ is the tag ID of the Mac Mini student-workstation in my _Grinnell College_ office in Burling Library. During the COVID-19 pandemic it's the only Mac that I have access to on campus. But the Macs here in my home office are not allowed to run [Screens 4](https://edovia.com/en/screens-mac/), the software that I formerly to use to make remote connections between Macs.  Fortunately, since the IP address of _MA6879_ is "static" and known, I can use built-in tools to make my screen-share and remote-control connections.
+_MA6879_ is the tag ID of the Mac Mini student-workstation in my _Grinnell College_ office in Burling Library. During the COVID-19 pandemic it's the only Mac that I have access to on campus. But the Macs here in my home office are not allowed to run [Screens 4](https://edovia.com/en/screens-mac/), the software that I formerly used to make remote connections between Macs.  Fortunately, since the IP address of _MA6879_ is "static" and known (by me!), I can use built-in tools to make my screen-share and remote-control connections.
 
-To do so I use [vnc](https://en.wikipedia.org/wiki/Virtual_Network_Computing) as described in the second half of [https://helpdesk.owu.edu/networking/other-networking-information/mac2mac/](https://helpdesk.owu.edu/networking/other-networking-information/mac2mac/). Have a look.
+To make a connection I use [vnc](https://en.wikipedia.org/wiki/Virtual_Network_Computing) as described in the second half of [https://helpdesk.owu.edu/networking/other-networking-information/mac2mac/](https://helpdesk.owu.edu/networking/other-networking-information/mac2mac/). Have a look.
 
 ## Pertinent Text
 
