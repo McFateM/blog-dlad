@@ -103,5 +103,9 @@ docker exec -it acme --issue --dns dns_azure -d netcentos.grinnell.edu --domain-
 > - https://github.com/acmesh-official/acme.sh/wiki/DNS-alias-mode
 > - https://hub.docker.com/r/neilpang/acme.sh
 
+## McFateM/docker-traefik2-acme-host
+
+I started work on this proposal by cloning [https://github.com/DigitalGrinnell/docker-traefik2-host](https://github.com/DigitalGrinnell/docker-traefik2-host), reinitializing it, and pushing back an unmodified new copy to [https://github.com/McFateM/docker-traefik2-acme-host](https://github.com/McFateM/docker-traefik2-acme-host).
+
 
 And that's a good place to break...  :smile:
