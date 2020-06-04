@@ -197,7 +197,13 @@ MIIFZjCCBE6...uZDIZq1GMQ7xM
 
 If you look closely above you'll see that I ran the command twice because of a typo the first time around.  As suggested in the output, I corrected the syntax and ran the command a second time with an appended `--force` option.  That seemed to work since it looks like the second command ran without incident.  However, when I visit [https://dgdocker3.grinnell.edu](https://dgdocker3.grinnell.edu) the site comes up, but still with an invalid/insecure cert.
 
-**Why?**
+**The cert appears to have been generated correctly, and against the _Let's Encrypt_ production server, so why is it invalid?**
+
+## A Hunch
+
+I've received confirmation that certs are generated only when this critical command, `docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.obfuscated.info --key-file /certs/dgdocker3.grinnell.edu --cert-file /certs/dgdocker3.grinnell.edu.cert --standalone --force`, is run.  Also, the order in which the containers are created isn't critical, so in the future it probably makes better sense to create the `acme` container first, and run it before `traefik` and the others are created.
+
+Now I need to confirm that the generated certs are visible to the _traefik_ container, and that they have proper permissions. Looking at that now...   
 
 
 And that's a good place to break...  :smile:
