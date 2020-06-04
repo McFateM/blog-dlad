@@ -266,5 +266,39 @@ traefik    | time="2020-06-04T16:36:26Z" level=debug msg="Serving default certif
 traefik    | time="2020-06-04T16:36:26Z" level=debug msg="http: TLS handshake error from 132.161.249.186:55292: remote error: tls: bad certificate" |
 ```
 
+## Aha!
 
-And that's a good place to break...  :smile:
+I poured over the output above and to be honest, it wasn't all that helpful, but along the way I decided to double check something...
+
+The unfortunate thing with this process is that we have to run a lengthy `docker exec...` command. Sure, you only run it once, but it's pretty long and therefore subject to human error.  I knew that I got it wrong twice, but in reality, there were three iterations of at least one error/omission.
+
+The command I typed (can't even copy/paste since I have to be on VPN to run the command, and VPN effectively "blinds" my machine rendering the clipboard almost useless), four times now, looked like this the first time:
+
+```
+docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.{obfuscated}.info --key-file /cernts/dgdocker3.grinnell.edu --cert-file /certs/dgdocker3.grinnell.edu.cert --standalone
+```
+
+There's an obvious error there, an extra "n" in the `--key-file` path.  It read `/cernts/`, but should have been `/certs/`.  Fortunately that was pretty easy to catch and the error messages in the log helped me identify it.  However, in that same portion of the command there's another error, actually an omission, that's more sinister.  The clause `--key-file /cernts/dgdocker3.grinnell.edu` should actually be `--key-file /certs/dgdocker3.grinnell.edu.key`.  They "key" difference there is the `.key` extension at the very end, it was omitted the first THREE times I ran this command!
+
+## One More Time...with Feeling
+
+So, the correct `docker exec...` command at this point is:
+
+```
+docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.{obfuscated}.info --key-file /certs/dgdocker3.grinnell.edu.key --cert-file /certs/dgdocker3.grinnell.edu.cert --standalone --force
+```
+
+The `--force` option is required here to "force" _Acme_ to renew, or create, new certs since some already exist from previous iterations of the command.  This time we must need to renew/create them with the correct path and file names!
+
+I've put a "copy" of that command, with obfuscated elements restored as needed, into the `.env` file that carries some necessary credentials.  Now to give it a go...
+
+## The End Result
+
+**I am exceptionally pleased to report that...** `IT` `JUST` `WORKS`.  :exclamation: :grinning: :exclamation: :grinning: :exclamation:
+
+Next steps...I'm going to split the process into a more granluar form with additional containers/services, and repeat this test. If that works I'll take additional steps to automate everything to reduce the potential for future human-error, within reason.
+
+Look for all of that in a follow-up blog post.
+
+
+And that's a wrap. I am so pleased that this works (and it's not even Friday!)  :smile:
