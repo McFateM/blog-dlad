@@ -111,5 +111,93 @@ docker exec -it acme --issue --dns dns_azure -d example-1.grinnell.edu --domain-
 
 I started work on this proposal by cloning [https://github.com/DigitalGrinnell/docker-traefik2-host](https://github.com/DigitalGrinnell/docker-traefik2-host), reinitializing it, and pushing back an unmodified new copy to [https://github.com/McFateM/docker-traefik2-acme-host](https://github.com/McFateM/docker-traefik2-acme-host).
 
+## First Experience
+
+Yesterday I created cloned the above repository to the `/opt/containers` directory on my development and testing host, `dgdocker3`. In the `docker-traefik2-acme-host` directory there I created a new `traefik` subdirectory to work from.
+
+After introducing as few changes as possible, I navigated into the aforementioned `traefik` subdirectory and did this, with the following log results:
+
+```bash
+docker-compose up -d
+traefik    | time="2020-06-03T21:03:31Z" level=info msg="Configuration loaded from flags."
+traefik    | time="2020-06-03T21:03:31Z" level=error msg="Unable to append certificate /certs/dgdocker3.grinnell.edu.cert to store: unable to generate TLS certificate : tls: failed to find any PEM data in certificate input" tlsStoreName=default
+```
+
+The error here caused me to panic for a bit, but realizing that the process wasn't complete I eventually moved on to the necessary next step.
+
+## Invoking Acme.sh
+
+In spite of the errors reported by `docker-compose up -d`, the command did indeed create three healthy containers: `traefik`, `acme`, and `simple-service`. That last container just provides a [WhoAmI](https://en.wikipedia.org/wiki/Whoami) app that I've configured to respond to [https://dgdocker3.grinnell.edu](https://dgdocker3.grinnell.edu). It works, but the cert is reported to be invalid/insecure.
+
+Matt's instructions do say that after `docker-compose up -d` there is one remaining command required to configure `acme.sh` to provision and keep watch on the certs to be created.  This command is to be run only one time in order to create a cert.  So I did this with the following obfuscated results:
+
+```
+[root@dgdocker3 traefik]# docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.obfuscated.info --key-file /certs/dgdocker3.grinnell.edu --cert-file /cernts/dgdocker3.grinnell.edu.cert --standalone
+[Wed Jun  3 22:13:45 UTC 2020] Create account key ok.
+[Wed Jun  3 22:13:45 UTC 2020] Registering account
+[Wed Jun  3 22:13:46 UTC 2020] Registered
+[Wed Jun  3 22:13:46 UTC 2020] ACCOUNT_THUMBPRINT='EOC57YZgSg-D6S1dAREUNxGArecjpDRizh_Tyo85kN8'
+[Wed Jun  3 22:13:46 UTC 2020] Creating domain key
+[Wed Jun  3 22:13:46 UTC 2020] The domain key is here: /acme.sh/dgdocker3.grinnell.edu/dgdocker3.grinnell.edu.key
+[Wed Jun  3 22:13:46 UTC 2020] Single domain='dgdocker3.grinnell.edu'
+[Wed Jun  3 22:13:46 UTC 2020] Getting domain auth token for each domain
+[Wed Jun  3 22:13:47 UTC 2020] Getting webroot for domain='dgdocker3.grinnell.edu'
+[Wed Jun  3 22:13:47 UTC 2020] Adding txt value: eMxRFkWK...mWAX4 for domain:  _acme-challenge.obfuscated.info
+[Wed Jun  3 22:13:49 UTC 2020] validation value added
+[Wed Jun  3 22:13:49 UTC 2020] The txt record is added: Success.
+[Wed Jun  3 22:13:49 UTC 2020] Let's check each dns records now. Sleep 20 seconds first.
+[Wed Jun  3 22:14:10 UTC 2020] Checking dgdocker3.grinnell.edu for _acme-challenge.obfuscated.info
+[Wed Jun  3 22:14:10 UTC 2020] Domain dgdocker3.grinnell.edu '_acme-challenge.obfuscated.info' success.
+[Wed Jun  3 22:14:10 UTC 2020] All success, let's return
+[Wed Jun  3 22:14:10 UTC 2020] Verifying: dgdocker3.grinnell.edu
+[Wed Jun  3 22:14:12 UTC 2020] Success
+[Wed Jun  3 22:14:12 UTC 2020] Removing DNS records.
+[Wed Jun  3 22:14:12 UTC 2020] Removing txt: eMxRFkWK...WAX4 for domain: _acme-challenge.obfuscated.info
+[Wed Jun  3 22:14:14 UTC 2020] validation record removed
+[Wed Jun  3 22:14:14 UTC 2020] Removed: Success
+[Wed Jun  3 22:14:14 UTC 2020] Verify finished, start to sign.
+[Wed Jun  3 22:14:14 UTC 2020] Lets finalize the order, Le_OrderFinalize: https://acme-v02.api.letsencrypt.org/acme/finalize/87890647/3622372972
+[Wed Jun  3 22:14:15 UTC 2020] Download cert, Le_LinkCert: https://acme-v02.api.letsencrypt.org/acme/cert/04591be468a971eb756bf08bc626c5905321
+[Wed Jun  3 22:14:15 UTC 2020] Cert success.
+-----BEGIN CERTIFICATE-----
+MIIFZDCCBE...waHNHdLOQrtg==
+-----END CERTIFICATE-----
+[Wed Jun  3 22:14:15 UTC 2020] Your cert is in  /acme.sh/dgdocker3.grinnell.edu/dgdocker3.grinnell.edu.cer
+[Wed Jun  3 22:14:15 UTC 2020] Your cert key is in  /acme.sh/dgdocker3.grinnell.edu/dgdocker3.grinnell.edu.key
+[Wed Jun  3 22:14:15 UTC 2020] The intermediate CA cert is in  /acme.sh/dgdocker3.grinnell.edu/ca.cer
+[Wed Jun  3 22:14:15 UTC 2020] And the full chain certs is there:  /acme.sh/dgdocker3.grinnell.edu/fullchain.cer
+[Wed Jun  3 22:14:15 UTC 2020] Installing cert to:/cernts/dgdocker3.grinnell.edu.cert
+/root/.acme.sh/acme.sh: line 5246: can't create /cernts/dgdocker3.grinnell.edu.cert: nonexistent directory
+[root@dgdocker3 traefik]# docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.obfuscated.info --key-file /certs/dgdocker3.grinnell.edu --cert-file /certs/dgdocker3.grinnell.edu.cert --standalone
+[Wed Jun  3 22:16:31 UTC 2020] Domains not changed.
+[Wed Jun  3 22:16:31 UTC 2020] Skip, Next renewal time is: Sun Aug  2 22:14:15 UTC 2020
+[Wed Jun  3 22:16:31 UTC 2020] Add '--force' to force to renew.
+[root@dgdocker3 traefik]# docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.obfuscated.info --key-file /certs/dgdocker3.grinnell.edu --cert-file /certs/dgdocker3.grinnell.edu.cert --standalone --force
+[Wed Jun  3 22:16:42 UTC 2020] Single domain='dgdocker3.grinnell.edu'
+[Wed Jun  3 22:16:42 UTC 2020] Getting domain auth token for each domain
+[Wed Jun  3 22:16:43 UTC 2020] Getting webroot for domain='dgdocker3.grinnell.edu'
+[Wed Jun  3 22:16:43 UTC 2020] dgdocker3.grinnell.edu is already verified, skip dns-01.
+[Wed Jun  3 22:16:43 UTC 2020] Verify finished, start to sign.
+[Wed Jun  3 22:16:43 UTC 2020] Lets finalize the order, Le_OrderFinalize: https://acme-v02.api.letsencrypt.org/acme/finalize/87890647/3622403221
+[Wed Jun  3 22:16:44 UTC 2020] Download cert, Le_LinkCert: https://acme-v02.api.letsencrypt.org/acme/cert/0342ac4b3f8619949070cce67d48b998ea8c
+[Wed Jun  3 22:16:44 UTC 2020] Cert success.
+-----BEGIN CERTIFICATE-----
+MIIFZjCCBE6...uZDIZq1GMQ7xM
+-----END CERTIFICATE-----
+[Wed Jun  3 22:16:44 UTC 2020] Your cert is in  /acme.sh/dgdocker3.grinnell.edu/dgdocker3.grinnell.edu.cer
+[Wed Jun  3 22:16:44 UTC 2020] Your cert key is in  /acme.sh/dgdocker3.grinnell.edu/dgdocker3.grinnell.edu.key
+[Wed Jun  3 22:16:44 UTC 2020] The intermediate CA cert is in  /acme.sh/dgdocker3.grinnell.edu/ca.cer
+[Wed Jun  3 22:16:44 UTC 2020] And the full chain certs is there:  /acme.sh/dgdocker3.grinnell.edu/fullchain.cer
+[Wed Jun  3 22:16:44 UTC 2020] Installing cert to:/certs/dgdocker3.grinnell.edu.cert
+[Wed Jun  3 22:16:44 UTC 2020] Installing key to:/certs/dgdocker3.grinnell.edu
+[root@dgdocker3 traefik]#
+```
+
+## Oops
+
+If you look closely above you'll see that I ran the command twice because of a typo the first time around.  As suggested in the output, I corrected the syntax and ran the command a second time with an appended `--force` option.  That seemed to work since it looks like the second command ran without incident.  However, when I visit [https://dgdocker3.grinnell.edu](https://dgdocker3.grinnell.edu) the site comes up, but still with an invalid/insecure cert.
+
+**Why?**
+
 
 And that's a good place to break...  :smile:
