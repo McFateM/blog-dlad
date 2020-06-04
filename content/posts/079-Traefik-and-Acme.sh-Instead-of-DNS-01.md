@@ -203,9 +203,9 @@ If you look closely above you'll see that I ran the command twice because of a t
 
 I've received confirmation that certs are generated only when this critical command, `docker exec -it acme --issue --dns dns_azure -d dgdocker3.grinnell.edu --domain-alias _acme-challenge.obfuscated.info --key-file /certs/dgdocker3.grinnell.edu --cert-file /certs/dgdocker3.grinnell.edu.cert --standalone --force`, is run.  Also, the order in which the containers are created isn't critical, so in the future it probably makes better sense to create the `acme` container first, and run it before `traefik` and the others are created.
 
-Now I need to confirm that the generated certs are visible to the _traefik_ container, and that they have proper permissions. Looking at that now...   
+Now I need to confirm that the generated certs are visible to the _traefik_ container, and that they have proper permissions. Looking at that now...
 
-I set _Traefik_'s debugging level to `DEBUG`, removed all of the trailing slashes from `/certs` references in `docker-compose.yml`. WHen I did a new `docker-compose up -d` this is what I got, with some obfuscation:
+I set _Traefik_'s debugging level to `DEBUG`, and removed all of the trailing slashes from `/certs` references in `docker-compose.yml`. When I did a new `docker-compose up -d` this is what I got, with some obfuscation:
 
 ```
 ╭─mcfatem@dgdocker3 /opt/containers/docker-traefik2-acme-host/traefik ‹master*›
@@ -263,8 +263,8 @@ traefik    | time="2020-06-04T16:36:16Z" level=debug msg="Added outgoing tracing
 traefik    | time="2020-06-04T16:36:16Z" level=debug msg="Creating middleware" entryPointName=websecure middlewareName=traefik-internal-recovery middlewareType=Recovery
 traefik    | time="2020-06-04T16:36:16Z" level=debug msg="No default certificate, generating one"
 traefik    | time="2020-06-04T16:36:26Z" level=debug msg="Serving default certificate for request: \"dgdocker3.grinnell.edu\""
-traefik    | time="2020-06-04T16:36:26Z" level=debug msg="http: TLS handshake error from 132.161.249.186:55292: remote error: tls: bad certificate" |  
-```  
+traefik    | time="2020-06-04T16:36:26Z" level=debug msg="http: TLS handshake error from 132.161.249.186:55292: remote error: tls: bad certificate" |
+```
 
 
 And that's a good place to break...  :smile:
