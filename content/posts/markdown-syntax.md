@@ -1,6 +1,6 @@
 ---
 title: Markdown Syntax Guide
-date: 2019-12-20T12:00:06+09:00
+date: 2020-06-12T09:08:21+09:00
 description: Sample article showcasing basic Markdown syntax and formatting for HTML elements.
 draft: false
 hideToc: false
