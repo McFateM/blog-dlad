@@ -23,7 +23,7 @@ What follows is a table of the steps, both failed and successful, taken to inges
 
 | Ingest Step | Outcome | Notes |
 | ---         | ---     | ---   |
-| 1. .warc File Creation | Success | Rebecca Ciota used a `wget` command to create a .warc archive file and a .cdx "index" of each site from existing, "live" web content.  The command used in the case of _WMI_ was: `wget     --warc-file=WMI_warc.warc   --recursive  --level=5     --warc-cdx     --page-requisites     --html-extension     --convert-links     --execute robots=off     --directory-prefix=. -x /solr-search  --wait=10 --random-wait    http://omeka1.grinnell.edu/x/WorldMusicInstruments`  |  
+| 1. .warc File Creation | **Success** | Rebecca Ciota used a `wget` command to create a .warc archive file and a .cdx "index" of each site from existing, "live" web content.  That command took this form: `wget --warc-file=<FILENAME> --recursive --level=5 --warc-cdx --page-requisites --html-extension --convert-links --execute robots=off --directory-prefix=. -x /solr-search --wait=10 --random-wait <WEBSITE-URL> `  |  
 | 2. .gz Compression | **Success** | Rebecca compressed each .warc and .cdx file pair into a compressed .gz archive to package the contents for subsequent processing. |
 | 3. MODS Metadata Prep | **Success** | Rebecca added two rows of control data and MODS metadata to Google Sheet https://docs.google.com/spreadsheets/d/1X3rs7UhIdS6SumTwFUvRR0F6-OnGEIF5xnGzcLrFqNY to prep for [IMI](https://github.com/mnylc/islandora_multi_importer) ingest. |
 | 4. .gz Files Added to //Storage | **Success** | The two .gz files generated in a previous step were copied to [//Storage](smb://storage.grinnell.edu/MEDIADB/DGIngest/WARC) for ingest. |
@@ -38,8 +38,31 @@ What follows is a table of the steps, both failed and successful, taken to inges
 | 13. Investigated Using `drush` | Failed | The updated [islandora_solution_pack_web_archive](https://github.com/Islandora/islandora_solution_pack_web_archive) module includes at least one `drush` command, and a non-web ingest of such large files would be preferred. However, investigation determined that the provided `drush` command does not provide an alternate means of ingest. |
 | 14. Repeat Step 12 | **Success** | I repeated step 12 still using the relatively small "Global Mongol Century" .warc, but gave the object a title of "World Music Instruments". [grinnell:27858](https://digital.grinnell.edu/islandora/object/grinnell:27858) was created, again with no thumbnail image or other image derivatives. |
 | 15. Attempted to Replace the OBJ Datastream | Failed | Navigating to https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/datastreams, I selected the `replace` link associated with the OBJ datastream in an attempt to replace the small .warc object with the proper WMI .warc.  This process failed to finish after nearly an hour of processing, presumably because the WMI .warc is simply too large causing the web process to time-out before completion. |
-| 16. Replaced the OBJ Datastream Using FEDORA | **Success** | I navigated to _Digital.Grinnell_'s FEDORA admin page at http://dgdocker1.grinnell.edu:8081/fedora/admin/, opened the grinnell:27858 object, and used the FEDORA admin interface there to replace its OBJ datastream. I allowed the upload portion of the process to "spin" for more than an hour, but when I stopped it and saved changes, I found a new OBJ that is 1.97 GB in size. That new OBJ appears to be viable. |
+| 16. Replaced the OBJ Datastream Using FEDORA | **Success** | I navigated to _Digital.Grinnell_'s FEDORA admin page at http://dgdocker1.grinnell.edu:8081/fedora/admin/, logged in as an admin, opened the grinnell:27858 object, and used the FEDORA admin interface there to replace its OBJ datastream. I allowed the upload portion of the process to "spin" for more than an hour, but when I stopped it and saved changes, I found a new OBJ that is 1.97 GB in size. That new OBJ appears to be viable. |
+| 17. Generated SCREENSHOT Images | **Success**  | Rebecca used the "Snip Tool" in Windows to collect screenshot images of each "live" website home page. These were uploaded to [//Storage](smb://storage.grinnell.edu/MEDIADB/DGIngest/WARC) for subsequent ingest. |
+| 18. Added Images via Manage/Datastreams Menu | **Success** | I navigated to each WARC object's [manage/datastreams page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/datastreams) and used the `Add a datastream` links to create new `SCREENSHOT` datastreams using the home page .jpg images. |
+| 19. Added Empty MODS Datastreams | **Success** | While still working in each object's [manage/datastreams page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/datastreams) I used the `Add a datastream` links again to create new, empty `MODS` datastreams. This step was necessary because _Web ARChive_ content models do not normally include any MODS record by default. |
+| 20. Exported Google Sheet to TSV | **Success** | To prep for updating each object's MODS record, I exported the "MASTER" tab of our [Google Sheet](https://docs.google.com/spreadsheets/d/1X3rs7UhIdS6SumTwFUvRR0F6-OnGEIF5xnGzcLrFqNY) to a .tsv, tab-seperated-values, file and saved the export in [//Storage/Library/AllStaff/DG-Metadata-Review-2020-r1/WARC/mods-imvt.tsv](smb://Storage/Library/AllStaff/DG-Metadata-Review-2020-r1/WARC).  |
+| 21. Invoked Islandora-MODS-via-Twig Workflow | **Success** | I engaged the `drush imvt`, _islandora\_mods\_via\_twig_, command and subsequent workflow, including _islandora\_datastream\_replace_, to replace the empty MODS records (see step 19) with correct data.  See [Exporting, Editing, & Replacing MODS Datastreams: Technical Details](/en/posts/070-exporting-editing-replacing-mods-datastreams-technical-details) for complete details. |
+| 22. Initiate Derivative Regeneration | **Success** | Since the two WARC objects were not ingested in a "traditional" manner, it was necessary to regenerate all derivative datastreams to complete the object. I did so, in the case of `grinnell:27858`, for example, by visiting the object's [manage/properties](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/properties) page and clicking `Regenerate all derivatives`. |
+
 
 ![WARC sub-form](/images/post-082/WARC-sub-form.png "WARC Sub-Form")
+
+## Summary
+
+Completing steps 1-4, 7, 10, 12, 14, and 16-22, resulted in the two "complete" WARC objects we now have in:
+
+  - [The Global Mongol Century](https://digital.grinnell.edu/islandora/object/grinnell:27856), and
+  - [World Music Instruments](https://digital.grinnell.edu/islandora/object/grinnell:27858).
+
+## Move to Faculty Scholarship
+
+All of the above steps were performed while the two objects were part of the `Pending-Review` collection in _Digital.Grinnell_.  Once the objects were reviewed and determined to be correct, steps were taken using each object's [manage page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage) to `Migrate this Object to another collection`, choosing to move them both to [Faculty Scholarship](https://digital.grinnell.edu/islandora/object/grinnell%3Afaculty-scholarship).
+
+## Setting Object Permissions
+
+Since both of the WARC objects are for archival only, it was determined that both objects should be accessible only to system administrators. To enforce that restriction I visited each object's [manage/xacml page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/xacml) to set appropriate restrictions on object management and object viewing.
+
 
 And that's time for a break.  Be back soon...
