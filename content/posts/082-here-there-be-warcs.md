@@ -23,7 +23,7 @@ What follows is a table of the steps, both failed and successful, taken to inges
 
 | Ingest Step | Outcome | Notes |
 | ---         | ---     | ---   |
-| 1. .warc File Creation | **Success** | Rebecca Ciota used a `wget` command to create a .warc archive file and a .cdx "index" of each site from existing, "live" web content.  That command took this form: `wget --warc-file=<FILENAME> --recursive --level=5 --warc-cdx --page-requisites --html-extension --convert-links --execute robots=off --directory-prefix=. -x /solr-search --wait=10 --random-wait <WEBSITE-URL> `  |  
+| 1. .warc File Creation | **Success** | Rebecca Ciota used a `wget` command to create a .warc archive file and a .cdx "index" of each site from existing, "live" web content.  That command took this form: `wget --warc-file=<FILENAME> --recursive --level=5 --warc-cdx --page-requisites --html-extension --convert-links --execute robots=off --directory-prefix=. -x /solr-search --wait=10 --random-wait <WEBSITE-URL> `  |
 | 2. .gz Compression | **Success** | Rebecca compressed each .warc and .cdx file pair into a compressed .gz archive to package the contents for subsequent processing. |
 | 3. MODS Metadata Prep | **Success** | Rebecca added two rows of control data and MODS metadata to Google Sheet https://docs.google.com/spreadsheets/d/1X3rs7UhIdS6SumTwFUvRR0F6-OnGEIF5xnGzcLrFqNY to prep for [IMI](https://github.com/mnylc/islandora_multi_importer) ingest. |
 | 4. .gz Files Added to //Storage | **Success** | The two .gz files generated in a previous step were copied to [//Storage](smb://storage.grinnell.edu/MEDIADB/DGIngest/WARC) for ingest. |
@@ -65,4 +65,4 @@ All of the above steps were performed while the two objects were part of the `Pe
 Since both of the WARC objects are for archival only, it was determined that both objects should be accessible only to system administrators. To enforce that restriction I visited each object's [manage/xacml page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/xacml) to set appropriate restrictions on object management and object viewing.
 
 
-And that's time for a break.  Be back soon...
+And that's a wrap.  Until next time...
