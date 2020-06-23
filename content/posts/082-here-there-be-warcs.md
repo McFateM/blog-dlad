@@ -8,9 +8,10 @@ tags:
   - web archive
   - islandora_solution_pack_web_archive
   - islandora_datastream_replace
+  - PDF
 ---
 
-The term `WARC`, an abreviation of [Web ARChive](https://en.wikipedia.org/wiki/Web_ARChive), always reminds me of things like hobbits, elves, dark lords, and orcs, of course.  But this post has nothing to do with those things so I need to clear my head and press on.
+The term `WARC`, an abbreviation of [Web ARChive](https://en.wikipedia.org/wiki/Web_ARChive), always reminds me of things like hobbits, elves, dark lords, and orcs, of course.  But this post has nothing to do with those things so I need to clear my head and press on.
 
 A WARC is essentially a file format used to capture the content and organization of a web site. Recently, I was asked to add a pair of WARCs to _Digital.Grinnell_. Doing so proved to be quite an adventure, but I am pleased to report that we now have these two objects to show for it:
 
@@ -63,6 +64,26 @@ All of the above steps were performed while the two objects were part of the `Pe
 ## Setting Object Permissions
 
 Since both of the WARC objects are for archival only, it was determined that both objects should be accessible only to system administrators. To enforce that restriction I visited each object's [manage/xacml page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/xacml) to set appropriate restrictions on object management and object viewing.
+
+## Adding PDF Datastreams
+
+The `islandora_solution_pack_web_archive` module and the Web ARChive content model provide an option to include a PDF in the ingest process. We did not initially generate any PDFs for the two WARCs that were ingested, but we have since taken steps to add PDF datastreams in order to experience what that option has to offer.  The process we employed is briefly documented below.
+
+### PDF Creation
+
+As mentioned earlier, a `wget` command was used to create the .warc files that we ingested, but `wget` does not appear to offer a viable option to create a PDF file. Fortunately, Rebecca's research turned up this _Adobe Acrobat Pro_ trick: https://lenashore.com/2019/06/how-to-make-a-pdf-of-an-entire-website/.
+
+Rebecca reports that this process works, but can take a very long time. She apparently had to specify a limited number of "levels" to enable creation of a reasonable PDF in the case of the _WMI_ web site.
+
+### PDF Datastream Addition
+
+Each object's PDF file was uploaded and ingested to join its corresponding object using steps similar to 18 and 22 above. Each object's [manage/datastreams page](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/datastreams) was engaged and the `Add a datastream` link used to create new `PDF` datastreams using the .pdf files created earlier.  
+
+Again, since the two WARC objects were not ingested in a "traditional" manner, I thought it necessary to regenerate all derivative datastreams to complete each object. I did so, in the case of `grinnell:27858`, for example, by visiting the object's [manage/properties](https://digital.grinnell.edu/islandora/object/grinnell%3A27858/manage/properties) page and clicking `Regenerate all derivatives`. The addition of the `PDF` datastream did not appear to create any additional derivatives, but each object came away with an empty `WARC_CSV` and `WARC_FILTERED` datastreams that I manually removed.
+
+The addition of the `PDF` datastreams did produce new PDF-download links like the one shown here:
+
+![DOWNLOAD links](/images/post-082/download-links-example.png "Example: WARC Download Links")
 
 
 And that's a wrap.  Until next time...
